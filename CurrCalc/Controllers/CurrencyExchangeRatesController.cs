@@ -18,8 +18,8 @@ using Microsoft.Extensions.Logging;
 namespace CurrCalc.Controllers
 {
     /// <inheritdoc />
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CurrencyExchangeRatesController : BaseController
     {
         private readonly IRepository<CurrencyExchangeRate,int> _repository;
@@ -45,8 +45,8 @@ namespace CurrCalc.Controllers
         /// <param name="time"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpGet("{sourceCode},{targetCode}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(string sourceCode, string targetCode, DateTime? time = default, CancellationToken token = default)
         {
             try
@@ -78,6 +78,7 @@ namespace CurrCalc.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "Admin,Trader")]
         public async Task<IActionResult> Put([FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
         {
             try
@@ -109,6 +110,7 @@ namespace CurrCalc.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Admin,Trader")]
         public async Task<IActionResult> Post([FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
         {
             try

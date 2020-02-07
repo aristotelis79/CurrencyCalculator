@@ -8,14 +8,15 @@ using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
 using CurrCalc.Models;
 using CurrCalc.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace CurrCalc.Controllers
 {
     /// <inheritdoc />
-    //[Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CurrenciesController : BaseController
     {
         private readonly ICurrencyService _currencyService;

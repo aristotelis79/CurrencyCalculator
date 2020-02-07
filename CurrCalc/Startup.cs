@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using CurrCalc.Data;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
@@ -12,17 +9,17 @@ using CurrCalc.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace CurrCalc
 {
@@ -55,6 +52,7 @@ namespace CurrCalc
             //services.AddCors();
 
             #region Security
+            IdentityModelEventSource.ShowPII = true; //To show detail of error and see the problem
 
             services.AddIdentity<AppUser, IdentityRole>(cfg =>
                 {
@@ -66,7 +64,7 @@ namespace CurrCalc
                 (x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    //x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 //.AddCookie()
                 .AddJwtBearer(cfg =>
@@ -77,7 +75,7 @@ namespace CurrCalc
                         ValidIssuer = Configuration["Tokens:Issuer"],
                         ValidAudience = Configuration["Tokens:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
-                        //ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = true,
                         //ValidateLifetime = true
                     };
 
@@ -107,12 +105,25 @@ namespace CurrCalc
                     Title = "EMPLOYEE API",
                 });
 
+                //security
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+ 
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+
                 // XML Documentation
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.EnableAnnotations();
             });
+            services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
+
             
             #endregion
 

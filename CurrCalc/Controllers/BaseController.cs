@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using CurrCalc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,20 +52,6 @@ namespace CurrCalc.Controllers
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        protected IActionResult NotUpdateObjectResult(string name ,string msg)
-        {
-            return NotFound(new ApiResponse(name)
-            {
-                ErrorMsg = msg,
-                Status = StatusCodes.Status422UnprocessableEntity
-            });
-        }
 
         /// <summary>
         /// 
@@ -78,6 +67,7 @@ namespace CurrCalc.Controllers
             });
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +79,21 @@ namespace CurrCalc.Controllers
             {
                 Data = data,
                 Status = StatusCodes.Status201Created
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="errors"></param>
+        /// <returns></returns>
+        protected IActionResult BadRequestObjectResult(string name, IEnumerable errors)
+        {
+            return BadRequest(new ApiResponse(name)
+            {
+                ErrorMsg = errors.Cast<object?>().Aggregate("", (current, error) => current + (error + ",")),
+                Status = StatusCodes.Status400BadRequest
             });
         }
     }

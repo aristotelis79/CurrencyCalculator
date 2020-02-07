@@ -26,14 +26,6 @@
             <param name="msg"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.BaseController.NotUpdateObjectResult(System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <param name="msg"></param>
-            <returns></returns>
-        </member>
         <member name="M:CurrCalc.Controllers.BaseController.OkObjectResult(System.Object)">
             <summary>
             
@@ -46,6 +38,14 @@
             
             </summary>
             <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.BadRequestObjectResult(System.String,System.Collections.IEnumerable)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="errors"></param>
             <returns></returns>
         </member>
         <member name="T:CurrCalc.Controllers.CurrenciesController">
@@ -122,7 +122,7 @@
         <member name="T:CurrCalc.Controllers.UsersController">
             <inheritdoc />
         </member>
-        <member name="M:CurrCalc.Controllers.UsersController.#ctor(Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.UsersController},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Identity.UserManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.SignInManager{CurrCalc.Data.Entities.AppUser})">
+        <member name="M:CurrCalc.Controllers.UsersController.#ctor(Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.UsersController},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Identity.UserManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.SignInManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{Microsoft.AspNetCore.Identity.IdentityRole})">
             <inheritdoc />
         </member>
         <member name="M:CurrCalc.Controllers.UsersController.CreateToken(CurrCalc.Models.AuthenticateModel)">
@@ -130,6 +130,13 @@
             
             </summary>
             <param name="model"></param>
+        </member>
+        <member name="M:CurrCalc.Controllers.UsersController.CreateUser(CurrCalc.Models.UserModel)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="T:CurrCalc.Data.AppDbContext">
             <summary>
@@ -236,6 +243,26 @@
             </summary>
         </member>
         <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.Target">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.Entities.Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Data.Entities.Role.User">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Data.Entities.Role.Trader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Data.Entities.Role.Admin">
             <summary>
             
             </summary>
@@ -436,6 +463,47 @@
         <member name="M:CurrCalc.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:CurrCalc.Models.ApiResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Models.ApiResponse.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Status">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.ErrorMsg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Success">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CurrCalc.Models.AuthenticateModel">
             <summary>
             
@@ -511,48 +579,12 @@
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Models.ApiResponse">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:CurrCalc.Models.ApiResponse.#ctor(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Id">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Name">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Status">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Data">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.ErrorMsg">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Success">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:CurrCalc.Models.UserModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.UserModel.Role">
             <summary>
             
             </summary>
