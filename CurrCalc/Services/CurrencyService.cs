@@ -54,7 +54,7 @@ namespace CurrCalc.Services
 
             await Task.WhenAll(sourceCurrencyTask, targetCurrencyTask).ConfigureAwait(false);
 
-            return new Dictionary<string, Currency>{{"source",sourceCurrencyTask.Result},{"target", sourceCurrencyTask.Result}};
+            return new Dictionary<string, Currency>{{"source",sourceCurrencyTask.Result},{"target", targetCurrencyTask.Result}};
         }
 
         /// <inheritdoc />

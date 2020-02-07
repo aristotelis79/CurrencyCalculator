@@ -13,6 +13,9 @@ namespace CurrCalc.Data.EntityTypeConfigurations
             builder.ToTable(nameof(CurrencyExchangeRate))
                 .HasKey(k => k.Id);
 
+            builder.Property(p => p.Rate)
+                .HasColumnType("decimal(18,4)");
+
             builder.Property(p => p.From)
                 .IsRequired();
 
@@ -33,7 +36,8 @@ namespace CurrCalc.Data.EntityTypeConfigurations
                 .OnDelete(DeleteBehavior.NoAction);
 
 
-            builder.HasIndex(i => new { i.SourceId, i.TargetId })
+            builder.HasIndex(i => new { i.SourceId, i.TargetId, i.From, i.To })
+                .IsUnique()
                 .HasName("idx_Source_Target");
         }
     }

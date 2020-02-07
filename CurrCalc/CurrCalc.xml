@@ -54,11 +54,12 @@
         <member name="M:CurrCalc.Controllers.CurrenciesController.#ctor(CurrCalc.Services.ICurrencyService,Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.BaseController},CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.Currency,System.Int32})">
             <inheritdoc cref="T:CurrCalc.Controllers.CurrenciesController" />
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Get(System.String)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Get(System.String,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
             <param name="isoCode"></param>
+            <param name="token"></param>
             <returns></returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrenciesController.Put(System.String,CurrCalc.Models.CurrencyModel,System.Threading.CancellationToken)">
@@ -399,11 +400,28 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.CurrencyExchangeRate)">
+        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.CurrencyExchangeRate,System.Collections.Generic.Dictionary{System.String,CurrCalc.Data.Entities.Currency})">
             <summary>
             
             </summary>
             <param name="entity"></param>
+            <param name="currencies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.Currency,CurrCalc.Models.CurrencyModel)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.CurrencyExchangeRate,CurrCalc.Models.CurrencyExchangeRateModel)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="T:CurrCalc.Migrations.InitialCreate">
@@ -434,6 +452,11 @@
             </summary>
         </member>
         <member name="T:CurrCalc.Models.CurrencyExchangeRateModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Id">
             <summary>
             
             </summary>

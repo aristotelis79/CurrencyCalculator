@@ -31,12 +31,11 @@ namespace CurrCalc.Services
         /// <returns></returns>
         public async Task<CurrencyExchangeRate> GetExchangeRateAsync(Currency source, Currency target, DateTime? time = default, CancellationToken token = default)
         {
-            var query = _repository.TableNoTracking.Where(x => x.Source == source && x.Target == target);
+            var query = _repository.TableNoTracking.Where(x => x.SourceId == source.Id && x.TargetId == target.Id);
 
             var to = time ?? DateTime.UtcNow;
-            
-             return await query.FirstOrDefaultAsync(x => x.From >= to && x.To <= to, token);
 
+            return await query.FirstOrDefaultAsync(x => x.From >= to && to <= x.To, token).ConfigureAwait(false);
         }
     }
 }

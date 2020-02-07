@@ -67,15 +67,17 @@ namespace CurrCalc.Mappers
         /// 
         /// </summary>
         /// <param name="entity"></param>
+        /// <param name="currencies"></param>
         /// <returns></returns>
-        public static CurrencyExchangeRateModel ToModel(this CurrencyExchangeRate entity)
+        public static CurrencyExchangeRateModel ToModel(this CurrencyExchangeRate entity, Dictionary<string,Currency> currencies = null)
         {
             if (entity == null) return null;
 
             return new CurrencyExchangeRateModel
             {
-               SourceIsoCode = entity.Source?.IsoCode,
-               TargetIsoCode = entity.Target?.IsoCode,
+               Id = entity.Id, 
+               SourceIsoCode = entity.Source?.IsoCode ?? currencies?["source"]?.IsoCode,
+               TargetIsoCode = entity.Target?.IsoCode ?? currencies?["target"]?.IsoCode,
                Rate = entity.Rate,
                Day = entity.From,
             };
@@ -94,6 +96,20 @@ namespace CurrCalc.Mappers
             entity.Name = !string.IsNullOrWhiteSpace(model.Name) ? model.Name : entity.Name;
             entity.Country = !string.IsNullOrWhiteSpace(model.Country) ? model.Country : entity.Country;
 
+            return entity;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static CurrencyExchangeRate Update(this CurrencyExchangeRate entity, CurrencyExchangeRateModel model)
+        {
+            if (entity == null) return null;
+            entity.Rate = model.Rate > 0 ? model.Rate : entity.Rate;
             return entity;
         }
     }

@@ -4,14 +4,16 @@ using CurrCalc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CurrCalc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200207104523_unique_indexs")]
+    partial class unique_indexs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,8 +130,8 @@ namespace CurrCalc.Migrations
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<float>("Rate")
+                        .HasColumnType("real");
 
                     b.Property<int>("SourceId")
                         .HasColumnType("int");
@@ -144,7 +146,7 @@ namespace CurrCalc.Migrations
 
                     b.HasIndex("TargetId");
 
-                    b.HasIndex("SourceId", "TargetId", "From", "To")
+                    b.HasIndex("SourceId", "TargetId")
                         .IsUnique()
                         .HasName("idx_Source_Target");
 

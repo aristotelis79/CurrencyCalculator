@@ -18,7 +18,6 @@ using Microsoft.Extensions.Logging;
 namespace CurrCalc.Controllers
 {
     /// <inheritdoc />
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CurrencyExchangeRatesController : BaseController
@@ -90,15 +89,9 @@ namespace CurrCalc.Controllers
                     return NotFoundObjectResult(nameof(CurrencyService), "currency code don't exist");
 
                 var updateExchangeRate = await _exchangeService.GetExchangeRateAsync(currencies["source"], currencies["target"], model.Day.Date, token)
-                    .ConfigureAwait(false);
+                                                                .ConfigureAwait(false);
 
-                var updateFields = await TryUpdateModelAsync(updateExchangeRate, "", c => c.Rate)
-                                                        .ConfigureAwait(false);
-
-                if (!updateFields)
-                    return NotUpdateObjectResult(nameof(CurrencyService), "exchange rate don't update");
-
-                await _repository.UpdateAsync(updateExchangeRate, token: token).ConfigureAwait(false);
+                await _repository.UpdateAsync(updateExchangeRate.Update(model), token: token).ConfigureAwait(false);
 
                 return OkObjectResult(updateExchangeRate.ToModel());
             }
@@ -131,7 +124,7 @@ namespace CurrCalc.Controllers
                 await _repository.InsertAsync(currencyExchangeRate, token: token)
                     .ConfigureAwait(false);
 
-                return CreateObjectResult(currencyExchangeRate.ToModel());
+                return CreateObjectResult(currencyExchangeRate.ToModel(currencies));
             }
             catch (Exception e)
             {

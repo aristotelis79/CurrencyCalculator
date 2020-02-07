@@ -29,6 +29,7 @@ namespace CurrCalc.Data.EntityTypeConfigurations
                 .IsRequired();
 
             builder.HasIndex(i => i.IsoCode)
+                .IsUnique()
                 .HasName("idx_Currency_IsoCode");
         }
     }

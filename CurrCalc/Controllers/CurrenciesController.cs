@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CurrCalc.Data;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
 using CurrCalc.Models;
 using CurrCalc.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace CurrCalc.Controllers
@@ -39,11 +34,14 @@ namespace CurrCalc.Controllers
         /// 
         /// </summary>
         /// <param name="isoCode"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("{isoCode}")]
-        public IActionResult Get(string isoCode)
+        public async Task<IActionResult> Get(string isoCode, CancellationToken token = default)
         {
-            var currency = _currencyService.GetCurrencyByIsoCode(isoCode).Result;
+            var currency = await _currencyService.GetCurrencyByIsoCode(isoCode, token: token).ConfigureAwait(false) ??
+                           await _currencyService.GetCurrencyByIsoCode(isoCode, true, token).ConfigureAwait(false);
+
             return currency != null ? OkObjectResult(currency.ToModel()) 
                                     : NotFoundObjectResult(nameof(CurrencyService),"currency don't exist");
         }
@@ -64,16 +62,7 @@ namespace CurrCalc.Controllers
                 var updateCurrency = await _currencyService.GetCurrencyByIsoCode(isoCode, true, token)
                                             .ConfigureAwait(false);
 
-
-                var updateFields = await TryUpdateModelAsync(updateCurrency, "",
-                        c => c.Name, c => c.Country, c => c.IsoNumber, c=>c.IsoNumber)
-                                        .ConfigureAwait(false);
-
-
-                if (!updateFields)
-                    return NotUpdateObjectResult(nameof(CurrencyService), "currency don't update");
-
-                await _repository.UpdateAsync(updateCurrency, token: token).ConfigureAwait(false);
+                await _repository.UpdateAsync(updateCurrency.Update(model), token: token).ConfigureAwait(false);
 
                 await _currencyService.ClearCurrencyCacheAsync();
 
@@ -99,6 +88,8 @@ namespace CurrCalc.Controllers
             try
             {
                 await _repository.InsertAsync(model.ToEntity(), token: token);
+
+                await _currencyService.ClearCurrencyCacheAsync();
 
                 return CreateObjectResult(model);
             }
