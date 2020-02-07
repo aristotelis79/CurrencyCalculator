@@ -1,0 +1,716 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CurrCalc</name>
+    </assembly>
+    <members>
+        <member name="T:CurrCalc.Controllers.BaseController">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.#ctor(Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.BaseController})">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.LogAndError500Response(System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.NotFoundObjectResult(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.NotUpdateObjectResult(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.OkObjectResult(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.BaseController.CreateObjectResult(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Controllers.CurrenciesController">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrenciesController.#ctor(CurrCalc.Services.ICurrencyService,Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.BaseController},CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.Currency,System.Int32})">
+            <inheritdoc cref="T:CurrCalc.Controllers.CurrenciesController" />
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="isoCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Put(System.String,CurrCalc.Models.CurrencyModel,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="isoCode"></param>
+            <param name="model"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.CurrencyModel,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Delete(System.String,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="isoCode"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Controllers.CurrencyExchangeRatesController">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.CurrencyExchangeRate,System.Int32},Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.CurrencyExchangeRatesController},CurrCalc.Services.IExchangeService,CurrCalc.Services.ICurrencyService)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Get(System.String,System.String,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="sourceCode"></param>
+            <param name="targetCode"></param>
+            <param name="time"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Controllers.UsersController">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.UsersController.#ctor(Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.UsersController},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Identity.UserManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.SignInManager{CurrCalc.Data.Entities.AppUser})">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.UsersController.CreateToken(CurrCalc.Models.AuthenticateModel)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="T:CurrCalc.Data.AppDbContext">
+            <summary>
+            Implementation of SqlServer DB context of application
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Data.AppDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{CurrCalc.Data.AppDbContext})">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.AppDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.AppDbContext.Set``2">
+            <inheritdoc />
+        </member>
+        <member name="T:CurrCalc.Data.Entities.AppUser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.Entities.BaseEntity`1">
+            <summary>
+            Base class for entities of Db
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.BaseEntity`1.Id">
+            <summary>
+            Gets or sets the entity identifier
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.Entities.Currency">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Data.Entities.Currency.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.IsoCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.IsoNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.SourceCurrencyExchangeRates">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Currency.TargetCurrencyExchangeRates">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.Entities.CurrencyExchangeRate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.Rate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.From">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.To">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.SourceId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.Source">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.TargetId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.CurrencyExchangeRate.Target">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.EntityTypeConfigurations.CurrencyConfiguration">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.Currency"/>
+        </member>
+        <member name="M:CurrCalc.Data.EntityTypeConfigurations.CurrencyConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.Currency})">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.Currency"/>
+        </member>
+        <member name="T:CurrCalc.Data.EntityTypeConfigurations.CurrencyExchangeRateConfiguration">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.CurrencyExchangeRate"/>
+        </member>
+        <member name="M:CurrCalc.Data.EntityTypeConfigurations.CurrencyExchangeRateConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.CurrencyExchangeRate})">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.CurrencyExchangeRate"/>
+        </member>
+        <member name="T:CurrCalc.Data.IDbContext">
+            <summary>
+            Represents Interface of application DB context
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Data.IDbContext.Set``2">
+            <summary>
+            Creates a DbSet that can be used to query and save instances of entity
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="T">Struct of Id of Base entity</typeparam>
+            <returns>A set for the given entity type</returns>
+        </member>
+        <member name="M:CurrCalc.Data.IDbContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <inheritdoc cref="T:Microsoft.EntityFrameworkCore.SaveChangesAsync" />
+        </member>
+        <member name="T:CurrCalc.Data.Repository.EfRepository`2">
+            <summary>
+            Represents the Entity Framework repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="T">Struct of Id of Base entity</typeparam>
+        </member>
+        <member name="P:CurrCalc.Data.Repository.EfRepository`2.TableNoTracking">
+            <inheritdoc />
+        </member>
+        <member name="P:CurrCalc.Data.Repository.EfRepository`2.Table">
+            <inheritdoc />
+        </member>
+        <member name="P:CurrCalc.Data.Repository.EfRepository`2.Entities">
+            <summary>
+            Gets an entity set
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.#ctor(CurrCalc.Data.IDbContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context">Application sql server DB context </param>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.GetByIdAsync(System.Object,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.InsertAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.UpdateAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.DeleteAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.SaveChangesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.Repository.EfRepository`2.GetFullErrorTextAndRollbackEntityChanges(Microsoft.EntityFrameworkCore.DbUpdateException)">
+            <summary>
+            
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Data.Repository.IRepository`2">
+            <summary>
+            Represents an entity repository
+            </summary>
+            <typeparam name="TEntity">Entity type</typeparam>
+            <typeparam name="T">Primitive type for Id of Entity</typeparam>
+        </member>
+        <member name="P:CurrCalc.Data.Repository.IRepository`2.TableNoTracking">
+            <summary>
+            Gets a table with "no tracking" enabled (EF feature) Use it only when you load record(s) only for read-only operations
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Repository.IRepository`2.Table">
+            <summary>
+            Gets a table
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.IRepository`2.GetByIdAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="token"> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.IRepository`2.InsertAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <param name="saveChanges"></param>
+            <param name="token"> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.IRepository`2.UpdateAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <param name="saveChanges"></param>
+            <param name="token"> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.IRepository`2.DeleteAsync(`0,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <param name="saveChanges"></param>
+            <param name="token"> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Data.Repository.IRepository`2.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="token"> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Mappers.Map">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.CurrencyExchangeRateModel,System.Collections.Generic.Dictionary{System.String,CurrCalc.Data.Entities.Currency})">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="currencies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.CurrencyModel)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.Currency)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.CurrencyExchangeRate)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:CurrCalc.Models.AuthenticateModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.AuthenticateModel.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.AuthenticateModel.Password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.CurrencyExchangeRateModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.SourceIsoCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.TargetIsoCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Rate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Day">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.CurrencyModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyModel.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyModel.Country">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyModel.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyModel.IsoCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.CurrencyModel.IsoNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.ApiResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Models.ApiResponse.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Status">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.ErrorMsg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.ApiResponse.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.UserModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:CurrCalc.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Services.CurrencyService">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.CurrencyService.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.Currency,System.Int32},CurrCalc.Services.IMemoryService)">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+            <param name="memoryService"></param>
+        </member>
+        <member name="M:CurrCalc.Services.CurrencyService.GetAll(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.CurrencyService.GetCurrencyByIsoCode(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.CurrencyService.GetCurrenciesByIsoCode(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.CurrencyService.ClearCurrencyCacheAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:CurrCalc.Services.ExchangeService">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.ExchangeService.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.CurrencyExchangeRate,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:CurrCalc.Services.ExchangeService.GetExchangeRateAsync(CurrCalc.Data.Entities.Currency,CurrCalc.Data.Entities.Currency,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="target"></param>
+            <param name="time"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Services.ICurrencyService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Services.ICurrencyService.GetAll(System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Services.ICurrencyService.GetCurrencyByIsoCode(System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="isoCode"></param>
+            <param name="getFromDb"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Services.ICurrencyService.GetCurrenciesByIsoCode(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="sourceCode"></param>
+            <param name="targetCode"></param>
+            <param name="getFromDb"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Services.ICurrencyService.ClearCurrencyCacheAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Services.IExchangeService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Services.IExchangeService.GetExchangeRateAsync(CurrCalc.Data.Entities.Currency,CurrCalc.Data.Entities.Currency,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="target"></param>
+            <param name="time"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Services.IMemoryService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Services.IMemoryService.ClearAsync``1(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Services.IMemoryService.GetOrCreateAsync``1(System.Object,System.Func{System.Threading.Tasks.Task{``0}},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="createItem"></param>
+            <param name="expireTimeInSec"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Services.MemoryService">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.MemoryService.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary>
+            
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:CurrCalc.Services.MemoryService.ClearAsync``1(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Services.MemoryService.GetOrCreateAsync``1(System.Object,System.Func{System.Threading.Tasks.Task{``0}},System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:CurrCalc.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:CurrCalc.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:CurrCalc.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
