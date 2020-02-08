@@ -34,11 +34,11 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get_Exchange_Rate
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="day"></param>
-        /// <param name="token"></param>
+        /// <param name="request">Currency codes for source and target currencies</param>
+        /// <param name="day">Day of exchange rate</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
@@ -67,11 +67,11 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// 
+        /// Put_Exchange_Rate
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="model"></param>
-        /// <param name="token"></param>
+        /// <param name="request">Currency codes for source and target currencies</param>
+        /// <param name="model">Additional information for create or update exchange range</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Admin,Trader")]
@@ -100,11 +100,11 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// 
+        /// Post_Exchange_Rate
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="model"></param>
-        /// <param name="token"></param>
+        /// <param name="request">Currency codes for source and target currencies</param>
+        /// <param name="model">Additional information for create or update exchange range</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin,Trader")]

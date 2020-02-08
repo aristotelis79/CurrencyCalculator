@@ -96,29 +96,49 @@
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Get(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
-            
+            Get_Exchange_Rate
             </summary>
-            <param name="request"></param>
-            <param name="day"></param>
-            <param name="token"></param>
+            <param name="request">Currency codes for source and target currencies</param>
+            <param name="day">Day of exchange rate</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
             <returns></returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
-            
+            Put_Exchange_Rate
             </summary>
-            <param name="request"></param>
-            <param name="model"></param>
-            <param name="token"></param>
+            <param name="request">Currency codes for source and target currencies</param>
+            <param name="model">Additional information for create or update exchange range</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
             <returns></returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
+            Post_Exchange_Rate
+            </summary>
+            <param name="request">Currency codes for source and target currencies</param>
+            <param name="model">Additional information for create or update exchange range</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CurrCalc.Controllers.LocalizedTextsController">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.LocalizedTextsController.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.LocalizedText,System.Int32},Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.LocalizedTextsController})">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLocalizedTexts(System.String,System.Threading.CancellationToken)">
+            <summary>
             
             </summary>
-            <param name="request"></param>
-            <param name="model"></param>
+            <param name="lang"></param>
             <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLanguages">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:CurrCalc.Controllers.UsersController">
@@ -152,6 +172,9 @@
             <inheritdoc />
         </member>
         <member name="M:CurrCalc.Data.AppDbContext.Set``2">
+            <inheritdoc />
+        </member>
+        <member name="P:CurrCalc.Data.AppDbContext.LocalizedText">
             <inheritdoc />
         </member>
         <member name="T:CurrCalc.Data.Entities.AppUser">
@@ -249,22 +272,22 @@
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Data.Entities.Role">
+        <member name="T:CurrCalc.Data.Entities.LocalizedText">
             <summary>
             
             </summary>
         </member>
-        <member name="F:CurrCalc.Data.Entities.Role.User">
+        <member name="P:CurrCalc.Data.Entities.LocalizedText.Language">
             <summary>
             
             </summary>
         </member>
-        <member name="F:CurrCalc.Data.Entities.Role.Trader">
+        <member name="P:CurrCalc.Data.Entities.LocalizedText.Key">
             <summary>
             
             </summary>
         </member>
-        <member name="F:CurrCalc.Data.Entities.Role.Admin">
+        <member name="P:CurrCalc.Data.Entities.LocalizedText.Value">
             <summary>
             
             </summary>
@@ -280,6 +303,12 @@
         </member>
         <member name="M:CurrCalc.Data.EntityTypeConfigurations.CurrencyExchangeRateConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.CurrencyExchangeRate})">
             <inheritdoc cref="T:CurrCalc.Data.Entities.CurrencyExchangeRate"/>
+        </member>
+        <member name="T:CurrCalc.Data.EntityTypeConfigurations.LocalizeTextConfiguration">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.LocalizedText"/>
+        </member>
+        <member name="M:CurrCalc.Data.EntityTypeConfigurations.LocalizeTextConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.LocalizedText})">
+            <inheritdoc cref="T:CurrCalc.Data.Entities.LocalizedText"/>
         </member>
         <member name="T:CurrCalc.Data.IDbContext">
             <summary>
@@ -402,6 +431,19 @@
             <param name="token"> to observe while waiting for the task to complete.</param>
             <returns></returns>
         </member>
+        <member name="T:CurrCalc.Helpers.EnumHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Helpers.EnumHelper.GetDescription``1(``0)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <typeparam name="TEnum"></typeparam>
+            <returns></returns>
+        </member>
         <member name="T:CurrCalc.Mappers.Map">
             <summary>
             
@@ -512,6 +554,39 @@
             </summary>
         </member>
         <member name="P:CurrCalc.Models.Common.IsoCode.IsoCodeValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.Common.Language">
+            <inheritdoc />
+        </member>
+        <member name="F:CurrCalc.Models.Common.Language.En">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Models.Common.Language.El">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.Common.Role">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Models.Common.Role.User">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Models.Common.Role.Trader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CurrCalc.Models.Common.Role.Admin">
             <summary>
             
             </summary>

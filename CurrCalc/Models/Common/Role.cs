@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CurrCalc.Data.Entities
+namespace CurrCalc.Models.Common
 {
     /// <summary>
     /// 
@@ -22,6 +22,4 @@ namespace CurrCalc.Data.Entities
         /// </summary>
         Admin
     }
-
-
 }

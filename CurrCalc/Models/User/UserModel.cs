@@ -1,4 +1,5 @@
 ﻿using CurrCalc.Data.Entities;
+using CurrCalc.Models.Common;
 
 namespace CurrCalc.Models.User
 {

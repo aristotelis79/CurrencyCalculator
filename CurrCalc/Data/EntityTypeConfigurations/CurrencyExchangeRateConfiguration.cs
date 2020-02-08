@@ -38,7 +38,7 @@ namespace CurrCalc.Data.EntityTypeConfigurations
 
             builder.HasIndex(i => new { i.SourceId, i.TargetId, i.From, i.To })
                 .IsUnique()
-                .HasName("idx_Source_Target");
+                .HasName("idx_Source_Target_From_To");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CurrCalc.Data.EntityTypeConfigurations
                 .HasKey(k => k.Id);
 
             builder.Property(p => p.IsoCode)
-                .HasMaxLength(3)
+                .HasColumnType("char(3)")
                 .IsRequired();
 
             builder.Property(p => p.Name)

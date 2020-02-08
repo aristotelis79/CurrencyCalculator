@@ -162,13 +162,16 @@ namespace CurrCalc
 #if(!DEBUG)
             app.UseHttpsRedirection();
 #endif
+            app.UseStaticFiles();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                //c.InjectJavascript("translate.js","text/javascript");
+                c.InjectJavascript("/swagger-ui/translate.doc.js");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
                 c.RoutePrefix = string.Empty;
+                //c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CurrCalc.ApiDoc.html");
+
             });
 
             app.UseRouting();

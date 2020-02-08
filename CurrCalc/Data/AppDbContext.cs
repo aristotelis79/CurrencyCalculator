@@ -29,6 +29,7 @@ namespace CurrCalc.Data
         {
             modelBuilder.ApplyConfiguration(new CurrencyExchangeRateConfiguration());
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
+            modelBuilder.ApplyConfiguration(new LocalizeTextConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -38,6 +39,9 @@ namespace CurrCalc.Data
         {
             return base.Set<TEntity>();
         }
+
+        ///<inheritdoc />
+        public DbSet<CurrCalc.Data.Entities.LocalizedText> LocalizedText { get; set; }
 
         #endregion
     }
