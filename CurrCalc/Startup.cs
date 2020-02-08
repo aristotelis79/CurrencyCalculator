@@ -78,7 +78,6 @@ namespace CurrCalc
                         ValidateIssuerSigningKey = true,
                         //ValidateLifetime = true
                     };
-
                 });
 
             #endregion
@@ -171,10 +170,7 @@ namespace CurrCalc
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
                 c.RoutePrefix = string.Empty;
                 //c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CurrCalc.ApiDoc.html");
-
             });
-
-            app.UseRouting();
 
             //// global cors policy
             //app.UseCors(x => x
@@ -182,7 +178,10 @@ namespace CurrCalc
             //    .AllowAnyMethod()
             //    .AllowAnyHeader());
 
+            app.UseRouting();
+
             app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -195,6 +194,13 @@ namespace CurrCalc
             {
                 var dbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
                 dbContext.Database.EnsureCreated();
+
+                var result = dbContext.Set<Currency>().Find(new object[]{1});
+                if(result != null) return;
+                
+                var filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./App_Data/seed.sql");
+                var sql = File.Exists(filepath) ? File.ReadAllText(filepath) : string.Empty;
+                dbContext.Database.ExecuteSqlRaw(sql);
             }
         }
     }

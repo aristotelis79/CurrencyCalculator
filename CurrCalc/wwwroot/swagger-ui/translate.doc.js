@@ -1,9 +1,13 @@
 ﻿
 const Language = {
 
-    select_list_id : "languages",
-    topBarSelector : ".topbar-wrapper",
-    languageKeySelector: "data-lang-key",
+    select_list_id_Selector: "languages",
+    topBar_Selector: ".topbar-wrapper",
+    language_Key_Selector: "data-lang-key",
+    close_block_Selector: ".opblock-tag",
+    block_summary_Selector: ".opblock-summary-description",
+    data_is_open_Selector: 'data-is-open',
+    localize_key_start : "Localize_Key_",
     select_list_html: `<label for="languages" style="color:white">&nbsp&nbsp</label>
                         <select onchange="Language.changeLanguage(this.value)" id="languages">
                         </select>`,
@@ -20,24 +24,46 @@ const Language = {
         //add select list html item
         const listEl = document.createElement("div");
         listEl.innerHTML = Language.select_list_html;
-        document.querySelector(Language.topBarSelector).append(listEl);
+        document.querySelector(Language.topBar_Selector).append(listEl);
 
         //get languages
         getData(Language.languagesUrl).then((data) => {
-            toSelectList(`#${Language.select_list_id}`, data.data);
+            toSelectList(`#${Language.select_list_id_Selector}`, data.data);
         });
 
-        //set keys
-        Language.descriptionsEls = document.querySelectorAll(".opblock-summary-description");
+        Language.setKeys();
+
+        Language.getEnglish();
+
+        Language.collapseEvent();
+    },
+
+    setKeys: function() {
+        Language.descriptionsEls = document.querySelectorAll(Language.block_summary_Selector);
         Language.descriptionsEls.forEach(e => {
-            if(e.innerText)
-                e.setAttribute(Language.languageKeySelector, e.innerText);
+            if(e.innerText.startsWith(Language.localize_key_start))
+                e.setAttribute(Language.language_Key_Selector, e.innerText);
         });
+    },
 
-        //get english
+    getEnglish: function() {
         getData(Language.localizeTextsUrl+ '/en').then((data) => {
             Language.sources = data.data;
             Language.replaceLanguageSources();
+        });
+    },
+
+    collapseEvent: function() {
+        const blocks = document.querySelectorAll(Language.close_block_Selector);
+        blocks.forEach((b) => {
+            b.onclick = function() {
+                if (b.getAttribute(Language.data_is_open_Selector) === 'false') {
+                    setTimeout(function() {
+                        Language.setKeys();
+                        Language.replaceLanguageSources();
+                    }, 1000);
+                }
+            }
         });
     },
 
@@ -48,9 +74,10 @@ const Language = {
         });
     },
 
+
     replaceLanguageSources: function () {
         Language.descriptionsEls.forEach(e => {
-            const key = e.getAttribute(Language.languageKeySelector);
+            const key = e.getAttribute(Language.language_Key_Selector);
             if (key)
                 e.innerText = Language.sources[key];
         });

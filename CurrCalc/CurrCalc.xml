@@ -56,37 +56,52 @@
         </member>
         <member name="M:CurrCalc.Controllers.CurrenciesController.Get(CurrCalc.Models.Common.IsoCode,System.Threading.CancellationToken)">
             <summary>
-            
+            Localize_Key_Get_Currencies
             </summary>
-            <param name="code"></param>
-            <param name="token"></param>
-            <returns></returns>
+            <param name="code">Iso currency code</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">InternalServerError</response>
+            <returns>Currency model</returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrenciesController.Put(CurrCalc.Models.Common.IsoCode,CurrCalc.Models.Currency.CurrencyUpdateModel,System.Threading.CancellationToken)">
             <summary>
-            
+            Localize_Key_Put_Currencies
             </summary>
-            <param name="code"></param>
-            <param name="model"></param>
-            <param name="token"></param>
-            <returns></returns>
+            <param name="code">Iso currency code</param>
+            <param name="model">Additional information for create or update currency</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">InternalServerError</response>
+            <returns>Currency model</returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.Common.IsoCode,CurrCalc.Models.Currency.CurrencyModel,System.Threading.CancellationToken)">
             <summary>
-            
+            Localize_Key_Post_Currencies
             </summary>
-            <param name="code"></param>
-            <param name="model"></param>
-            <param name="token"></param>
-            <returns></returns>
+            <param name="code">Iso currency code</param>
+            <param name="model">Additional information for create or update currency</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <response code="201">Created</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">InternalServerError</response>
+            <returns>currency model</returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrenciesController.Delete(CurrCalc.Models.Common.IsoCode,System.Threading.CancellationToken)">
             <summary>
-            
+            Localize_Key_Delete_Currencies
             </summary>
-            <param name="code"></param>
-            <param name="token"></param>
-            <returns></returns>
+            <param name="code">Iso currency code</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <response code="200">OK</response>
+            <response code="204">NoContent</response>
+            <response code="400">NotFound</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">InternalServerError</response>
         </member>
         <member name="T:CurrCalc.Controllers.CurrencyExchangeRatesController">
             <inheritdoc />
@@ -96,30 +111,39 @@
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Get(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
-            Get_Exchange_Rate
+            Localize_Key_Get_Exchange_Rate
             </summary>
             <param name="request">Currency codes for source and target currencies</param>
             <param name="day">Day of exchange rate</param>
             <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="500">InternalServerError</response>
+            <returns>exchange rate</returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
-            Put_Exchange_Rate
+            Localize_Key_Put_Exchange_Rate
             </summary>
             <param name="request">Currency codes for source and target currencies</param>
             <param name="model">Additional information for create or update exchange range</param>
             <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="500">InternalServerError</response>
+            <returns>currency exchange rate model</returns>
         </member>
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
-            Post_Exchange_Rate
+            Localize_Key_Post_Exchange_Rate
             </summary>
             <param name="request">Currency codes for source and target currencies</param>
             <param name="model">Additional information for create or update exchange range</param>
             <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="500">InternalServerError</response>
+            <returns>currency exchange rate model</returns>
         </member>
         <member name="T:CurrCalc.Controllers.LocalizedTextsController">
             <inheritdoc />
@@ -129,17 +153,23 @@
         </member>
         <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLocalizedTexts(System.String,System.Threading.CancellationToken)">
             <summary>
-            
+            Get all localized text for specific language
             </summary>
-            <param name="lang"></param>
-            <param name="token"></param>
-            <returns></returns>
+            <param name="lang">Language code</param>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="500">InternalServerError</response>
+            <returns>Dictionary with all keys - values for a specific language</returns>
         </member>
         <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLanguages">
             <summary>
-            
+            Get all languages
             </summary>
-            <returns></returns>
+            <response code="200">OK</response>
+            <response code="400">NotFound</response>
+            <response code="500">InternalServerError</response>
+            <returns>Select list of languages</returns>
         </member>
         <member name="T:CurrCalc.Controllers.UsersController">
             <inheritdoc />
@@ -149,16 +179,16 @@
         </member>
         <member name="M:CurrCalc.Controllers.UsersController.CreateToken(CurrCalc.Models.User.AuthenticateModel)">
             <summary>
-            
+            Localize_Key_Create_Token
             </summary>
-            <param name="model"></param>
+            <param name="model">Authenticate model</param>
         </member>
         <member name="M:CurrCalc.Controllers.UsersController.CreateUser(CurrCalc.Models.User.UserModel)">
             <summary>
-            
+            Localize_Key_Create_User
             </summary>
-            <param name="model"></param>
-            <returns></returns>
+            <param name="model">User Model</param>
+            <returns>App user model</returns>
         </member>
         <member name="T:CurrCalc.Data.AppDbContext">
             <summary>
@@ -494,18 +524,6 @@
             <param name="entity"></param>
             <param name="model"></param>
             <returns></returns>
-        </member>
-        <member name="T:CurrCalc.Migrations.InitialCreate">
-            <inheritdoc />
-        </member>
-        <member name="M:CurrCalc.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:CurrCalc.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:CurrCalc.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
         </member>
         <member name="T:CurrCalc.Models.ApiResponse">
             <summary>

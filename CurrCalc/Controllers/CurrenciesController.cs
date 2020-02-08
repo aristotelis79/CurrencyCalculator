@@ -33,7 +33,7 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// Get_Currencies
+        /// Localize_Key_Get_Currencies
         /// </summary>
         /// <param name="code">Iso currency code</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
@@ -55,7 +55,7 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// Put_Currencies
+        /// Localize_Key_Put_Currencies
         /// </summary>
         /// <param name="code">Iso currency code</param>
         /// <param name="model">Additional information for create or update currency</param>
@@ -92,7 +92,7 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// Post_Currencies
+        /// Localize_Key_Post_Currencies
         /// </summary>
         /// <param name="code">Iso currency code</param>
         /// <param name="model">Additional information for create or update currency</param>
@@ -120,7 +120,7 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// Delete_Currencies
+        /// Localize_Key_Delete_Currencies
         /// </summary>
         /// <param name="code">Iso currency code</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>

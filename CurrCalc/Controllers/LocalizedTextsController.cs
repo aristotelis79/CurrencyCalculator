@@ -31,7 +31,7 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// Get all localized text for spesific language
+        /// Get all localized text for specific language
         /// </summary>
         /// <param name="lang">Language code</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>

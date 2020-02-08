@@ -11,13 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ApiDoc.html" />
+    <None Remove="App_Data\seed.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="ApiDoc.html">
+    <Content Include="App_Data\seed.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +45,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

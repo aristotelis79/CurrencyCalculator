@@ -40,7 +40,7 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// Create_Token
+        /// Localize_Key_Create_Token
         /// </summary>
         /// <param name="model">Authenticate model</param>
         [AllowAnonymous]
@@ -49,7 +49,18 @@ namespace CurrCalc.Controllers
         public async Task<IActionResult> CreateToken([FromBody] AuthenticateModel model)
         {
             if (!ModelState.IsValid) return BadRequest();
+            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            await _roleManager.CreateAsync(new IdentityRole("Trader"));
+            await _roleManager.CreateAsync(new IdentityRole("User"));
 
+            var currentUser1 = await _userManager.FindByEmailAsync("trader@trader.com").ConfigureAwait(false);
+            await _userManager.AddToRoleAsync(currentUser1, Enum.GetName(typeof(Role), Role.Trader)).ConfigureAwait(false);
+
+            var currentUser2 = await _userManager.FindByEmailAsync("admin@admin.com").ConfigureAwait(false);
+            await _userManager.AddToRoleAsync(currentUser2, Enum.GetName(typeof(Role), Role.Admin)).ConfigureAwait(false);
+
+            var currentUser3 = await _userManager.FindByEmailAsync("test@test.com").ConfigureAwait(false);
+            await _userManager.AddToRoleAsync(currentUser3, Enum.GetName(typeof(Role), Role.User)).ConfigureAwait(false);
             try
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -64,7 +75,7 @@ namespace CurrCalc.Controllers
                 var securityToken = new JwtSecurityToken(issuer: _configuration["Tokens:Issuer"],
                     audience: _configuration["Tokens:Audience"],
                     claims : (await GetUserClaims(user).ConfigureAwait(false)).ToArray(),
-                    expires: DateTime.Now.AddDays(Convert.ToInt32(_configuration["Tokens:Expires"])),
+                    expires: DateTime.Now.AddDays(Convert.ToInt32(_configuration["Tokens:ExpiresInDays"])),
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"])),
                         SecurityAlgorithms.HmacSha256));
 
@@ -82,7 +93,7 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// Create_User
+        /// Localize_Key_Create_User
         /// </summary>
         /// <param name="model">User Model</param>
         /// <returns>App user model</returns>

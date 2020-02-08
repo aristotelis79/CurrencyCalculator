@@ -34,7 +34,7 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// Get_Exchange_Rate
+        /// Localize_Key_Get_Exchange_Rate
         /// </summary>
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="day">Day of exchange rate</param>
@@ -70,7 +70,7 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// Put_Exchange_Rate
+        /// Localize_Key_Put_Exchange_Rate
         /// </summary>
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="model">Additional information for create or update exchange range</param>
@@ -106,7 +106,7 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// Post_Exchange_Rate
+        /// Localize_Key_Post_Exchange_Rate
         /// </summary>
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="model">Additional information for create or update exchange range</param>
