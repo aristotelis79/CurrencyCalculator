@@ -8,6 +8,16 @@ namespace CurrCalc.Models.Currency
     /// </summary>
     public class CurrencyCreateModel : CurrencyModel
     {
+        /// <inheritdoc />
+        public CurrencyCreateModel()
+        {
+        }
+
+        /// <inheritdoc />
+        public CurrencyCreateModel(CurrencyModel model, IsoCode code) : base(model)
+        {
+            Code = code;
+        }
 
         /// <summary>
         /// 

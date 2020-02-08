@@ -26,8 +26,8 @@ namespace CurrCalc.Mappers
                 SourceId = currencies["source"].Id,
                 TargetId = currencies["target"].Id,
                 Rate = model.Rate,
-                From = model.Day.Date,
-                To = model.Day.Date.AddDays(1).AddTicks(-1)
+                From = (model.Day?.Date ?? DateTime.UtcNow.Date),
+                To =  (model.Day?.Date.AddDays(1).AddTicks(-1) ?? DateTime.UtcNow.Date.AddDays(1).AddTicks(-1))
             };
         }
 
@@ -72,15 +72,13 @@ namespace CurrCalc.Mappers
         /// <param name="entity"></param>
         /// <param name="currencies"></param>
         /// <returns></returns>
-        public static CurrencyExchangeRateModel ToModel(this CurrencyExchangeRate entity, Dictionary<string,Currency> currencies = null)
+        public static CurrencyExchangeRateModel ToModel(this CurrencyExchangeRate entity)
         {
             if (entity == null) return null;
 
             return new CurrencyExchangeRateModel
             { 
-               Id = entity.Id, 
-               Source = new IsoCode { IsoCodeValue = entity.Source?.IsoCode ?? currencies?["source"]?.IsoCode },
-               Target = new IsoCode { IsoCodeValue =  entity.Target?.IsoCode ?? currencies?["target"]?.IsoCode },
+               Id = entity.Id,
                Rate = entity.Rate,
                Day = entity.From,
             };

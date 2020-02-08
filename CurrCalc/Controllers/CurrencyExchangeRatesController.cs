@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CurrCalc.Data;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
-using CurrCalc.Models;
-using CurrCalc.Models.Common;
 using CurrCalc.Models.CurrencyExchangeRate;
 using CurrCalc.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +15,7 @@ namespace CurrCalc.Controllers
 {
     /// <inheritdoc />
     [ApiController]
+    [Route("api/exchanges/{Source.IsoCodeValue}/{Target.IsoCodeValue}")]
     public class CurrencyExchangeRatesController : BaseController
     {
         private readonly IRepository<CurrencyExchangeRate,int> _repository;
@@ -46,7 +41,7 @@ namespace CurrCalc.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet, Route("api/exchange/{Source.IsoCodeValue}/{Target.IsoCodeValue}")]
+        [HttpGet]
         public async Task<IActionResult> Get([FromRoute] CurrencyExchangeRateRequest request, [FromQuery] DateTime? day = null, CancellationToken token = default)
         {
             try
@@ -74,27 +69,28 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="request"></param>
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPut, Route("api/[controller]")]
+        [HttpPut]
         [Authorize(Roles = "Admin,Trader")]
-        public async Task<IActionResult> Put([FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
+        public async Task<IActionResult> Put([FromRoute] CurrencyExchangeRateRequest request, [FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
         {
             try
             {
-                var currencies = await _currencyService.GetCurrenciesByIsoCode(model.Source.IsoCodeValue,model.Target.IsoCodeValue, token: token)
+                var currencies = await _currencyService.GetCurrenciesByIsoCode(request.Source.IsoCodeValue,request.Target.IsoCodeValue, token: token)
                     .ConfigureAwait(false);
 
                 if (currencies.Values.Any(x=> x == null)) 
                     return NotFoundObjectResult(nameof(CurrencyService), "currency code don't exist");
 
-                var updateExchangeRate = await _exchangeService.GetExchangeRateAsync(currencies["source"], currencies["target"], model.Day.Date, token)
+                var updateExchangeRate = await _exchangeService.GetExchangeRateAsync(currencies["source"], currencies["target"], model.Day?.Date, token)
                                                                 .ConfigureAwait(false);
 
                 await _repository.UpdateAsync(updateExchangeRate.Update(model), token: token).ConfigureAwait(false);
 
-                return OkObjectResult(updateExchangeRate.ToModel(currencies));
+                return OkObjectResult(updateExchangeRate.ToModel());
             }
             catch (Exception e)
             {
@@ -106,16 +102,17 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="request"></param>
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/[controller]")]
+        [HttpPost]
         [Authorize(Roles = "Admin,Trader")]
-        public async Task<IActionResult> Post([FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
+        public async Task<IActionResult> Post([FromRoute] CurrencyExchangeRateRequest request, [FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
         {
             try
             {
-                var currencies = await _currencyService.GetCurrenciesByIsoCode(model.Source.IsoCodeValue,model.Target.IsoCodeValue, token: token)
+                var currencies = await _currencyService.GetCurrenciesByIsoCode(request.Source.IsoCodeValue,request.Target.IsoCodeValue, token: token)
                     .ConfigureAwait(false);
 
                 if (currencies.Values.Any(x=> x == null)) 
@@ -123,10 +120,9 @@ namespace CurrCalc.Controllers
 
                 var currencyExchangeRate = model.ToEntity(currencies);
 
-                await _repository.InsertAsync(currencyExchangeRate, token: token)
-                    .ConfigureAwait(false);
+                await _repository.InsertAsync(currencyExchangeRate, token: token).ConfigureAwait(false);
 
-                return CreateObjectResult(currencyExchangeRate.ToModel(currencies));
+                return CreateObjectResult(currencyExchangeRate.ToModel());
             }
             catch (Exception e)
             {

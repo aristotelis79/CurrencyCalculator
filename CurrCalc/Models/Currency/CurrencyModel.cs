@@ -10,6 +10,24 @@ namespace CurrCalc.Models.Currency
         /// <summary>
         /// 
         /// </summary>
+        public CurrencyModel()
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public CurrencyModel(CurrencyModel model)
+        {
+            Id = model.Id;
+            Name = model.Name;
+            Country = model.Country;
+            IsoNumber = model.IsoNumber;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>

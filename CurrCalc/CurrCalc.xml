@@ -71,10 +71,11 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.Currency.CurrencyCreateModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.Common.IsoCode,CurrCalc.Models.Currency.CurrencyModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
+            <param name="code"></param>
             <param name="model"></param>
             <param name="token"></param>
             <returns></returns>
@@ -102,18 +103,20 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
+            <param name="request"></param>
             <param name="model"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
+            <param name="request"></param>
             <param name="model"></param>
             <param name="token"></param>
             <returns></returns>
@@ -426,7 +429,7 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.CurrencyExchangeRate,System.Collections.Generic.Dictionary{System.String,CurrCalc.Data.Entities.Currency})">
+        <member name="M:CurrCalc.Mappers.Map.ToModel(CurrCalc.Data.Entities.CurrencyExchangeRate)">
             <summary>
             
             </summary>
@@ -523,16 +526,6 @@
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Source">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Target">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Rate">
             <summary>
             
@@ -563,6 +556,12 @@
             
             </summary>
         </member>
+        <member name="M:CurrCalc.Models.Currency.CurrencyCreateModel.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Models.Currency.CurrencyCreateModel.#ctor(CurrCalc.Models.Currency.CurrencyModel,CurrCalc.Models.Common.IsoCode)">
+            <inheritdoc />
+        </member>
         <member name="P:CurrCalc.Models.Currency.CurrencyCreateModel.Code">
             <summary>
             
@@ -572,6 +571,17 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:CurrCalc.Models.Currency.CurrencyModel.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CurrCalc.Models.Currency.CurrencyModel.#ctor(CurrCalc.Models.Currency.CurrencyModel)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
         </member>
         <member name="P:CurrCalc.Models.Currency.CurrencyModel.Id">
             <summary>

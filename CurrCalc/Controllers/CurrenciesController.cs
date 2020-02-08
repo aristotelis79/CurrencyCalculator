@@ -39,9 +39,9 @@ namespace CurrCalc.Controllers
         /// <param name="code"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{IsoCodeValue}")]
         [Authorize(Roles = "Admin,Trader")]
-        public async Task<IActionResult> Get([FromQuery] IsoCode code, CancellationToken token = default)
+        public async Task<IActionResult> Get([FromRoute] IsoCode code, CancellationToken token = default)
         {
             var currency = await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, token: token).ConfigureAwait(false) ??
                            await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, true, token).ConfigureAwait(false);
@@ -58,9 +58,9 @@ namespace CurrCalc.Controllers
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Put([FromQuery] IsoCode code, [FromBody] CurrencyUpdateModel model, CancellationToken token = default)
+        public async Task<IActionResult> Put([FromRoute] IsoCode code, [FromBody] CurrencyUpdateModel model, CancellationToken token = default)
         {
             try
             {
@@ -87,16 +87,17 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="code"></param>
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Post(CurrencyCreateModel model, CancellationToken token = default)
+        public async Task<IActionResult> Post([FromRoute] IsoCode code, CurrencyModel model, CancellationToken token = default)
         {
             try
             {
-                await _repository.InsertAsync(model.ToEntity(), token: token);
+                await _repository.InsertAsync((new CurrencyCreateModel(model,code)).ToEntity(), token: token);
 
                 await _currencyService.ClearCurrencyCacheAsync();
 
@@ -114,9 +115,9 @@ namespace CurrCalc.Controllers
         /// <param name="code"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete([FromQuery] IsoCode code, CancellationToken token = default)
+        public async Task<IActionResult> Delete([FromRoute] IsoCode code, CancellationToken token = default)
         {
             try
             {
