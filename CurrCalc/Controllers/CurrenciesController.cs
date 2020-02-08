@@ -118,40 +118,5 @@ namespace CurrCalc.Controllers
                 return LogAndError500Response(nameof(CurrenciesController), e);
             }
         }
-
-        /// <summary>
-        /// Localize_Key_Delete_Currencies
-        /// </summary>
-        /// <param name="code">Iso currency code</param>
-        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-        /// <response code="200">OK</response>
-        /// <response code="204">NoContent</response>
-        /// <response code="400">NotFound</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="500">InternalServerError</response>
-        [HttpDelete("{IsoCodeValue}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete([FromRoute] IsoCode code, CancellationToken token = default)
-        {
-            try
-            {
-                var currency = await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, true, token)
-                                                                        .ConfigureAwait(false);
-                if (currency == null)
-                    return NotFoundObjectResult(nameof(CurrencyService), "currency don't exist");
-
-                await _repository.DeleteAsync(currency, token: token).ConfigureAwait(false);
-
-                return new ObjectResult(new ApiResponse
-                {
-                    Data = null,
-                    Status = StatusCodes.Status204NoContent
-                });
-            }
-            catch (Exception e)
-            {
-                return LogAndError500Response(nameof(CurrenciesController), e);
-            }
-        }
     }
 }

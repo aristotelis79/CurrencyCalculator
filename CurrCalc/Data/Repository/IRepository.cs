@@ -51,15 +51,6 @@ namespace CurrCalc.Data.Repository
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="saveChanges"></param>
-        /// <param name="token"> to observe while waiting for the task to complete.</param>
-        /// <returns></returns>
-        Task<int> DeleteAsync(TEntity entity, bool saveChanges= true, CancellationToken token = default);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="token"> to observe while waiting for the task to complete.</param>
         /// <returns></returns>
         Task<int> SaveChangesAsync(CancellationToken token = default);

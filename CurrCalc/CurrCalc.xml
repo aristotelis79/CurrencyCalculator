@@ -91,18 +91,6 @@
             <response code="500">InternalServerError</response>
             <returns>currency model</returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Delete(CurrCalc.Models.Common.IsoCode,System.Threading.CancellationToken)">
-            <summary>
-            Localize_Key_Delete_Currencies
-            </summary>
-            <param name="code">Iso currency code</param>
-            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-            <response code="200">OK</response>
-            <response code="204">NoContent</response>
-            <response code="400">NotFound</response>
-            <response code="401">Unauthorized</response>
-            <response code="500">InternalServerError</response>
-        </member>
         <member name="T:CurrCalc.Controllers.CurrencyExchangeRatesController">
             <inheritdoc />
         </member>
@@ -389,9 +377,6 @@
         <member name="M:CurrCalc.Data.Repository.EfRepository`2.UpdateAsync(`0,System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:CurrCalc.Data.Repository.EfRepository`2.DeleteAsync(`0,System.Boolean,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="M:CurrCalc.Data.Repository.EfRepository`2.SaveChangesAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -437,15 +422,6 @@
             <returns></returns>
         </member>
         <member name="M:CurrCalc.Data.Repository.IRepository`2.UpdateAsync(`0,System.Boolean,System.Threading.CancellationToken)">
-            <summary>
-            
-            </summary>
-            <param name="entity"></param>
-            <param name="saveChanges"></param>
-            <param name="token"> to observe while waiting for the task to complete.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CurrCalc.Data.Repository.IRepository`2.DeleteAsync(`0,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             
             </summary>

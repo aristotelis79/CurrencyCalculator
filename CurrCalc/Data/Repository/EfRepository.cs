@@ -101,27 +101,6 @@ namespace CurrCalc.Data.Repository
         }
 
         /// <inheritdoc />
-        public virtual  async Task<int> DeleteAsync(TEntity entity, bool saveChanges = true,  CancellationToken token = default)
-        {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-
-            try
-            {
-                Entities.Remove(entity);
-
-                if (!saveChanges) return 0;
-
-                return await _context.SaveChangesAsync(token).ConfigureAwait(false);
-            }
-            catch (DbUpdateException exception)
-            {
-                throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
-            }
-        }
-        
-
-        /// <inheritdoc />
         public virtual async Task<int> SaveChangesAsync(CancellationToken token = default)
         {
             return await _context.SaveChangesAsync(token).ConfigureAwait(false);
