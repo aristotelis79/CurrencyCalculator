@@ -22,4 +22,6 @@ namespace CurrCalc.Data.Entities
         /// </summary>
         Admin
     }
+
+
 }

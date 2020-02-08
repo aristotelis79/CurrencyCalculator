@@ -1,4 +1,6 @@
-﻿namespace CurrCalc.Models
+﻿using CurrCalc.Models.Common;
+
+namespace CurrCalc.Models.Currency
 {
     /// <summary>
     /// 
@@ -19,11 +21,6 @@
         /// 
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string IsoCode { get; set; }
 
         /// <summary>
         /// 

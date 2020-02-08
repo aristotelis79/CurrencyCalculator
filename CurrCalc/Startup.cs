@@ -122,7 +122,7 @@ namespace CurrCalc
                 c.IncludeXmlComments(xmlPath);
                 c.EnableAnnotations();
             });
-            services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
+            services.AddSwaggerGenNewtonsoftSupport();
 
             
             #endregion

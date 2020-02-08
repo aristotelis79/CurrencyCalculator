@@ -26,16 +26,17 @@ namespace CurrCalc.Services
         /// </summary>
         /// <param name="source"></param>
         /// <param name="target"></param>
-        /// <param name="time"></param>
+        /// <param name="day"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<CurrencyExchangeRate> GetExchangeRateAsync(Currency source, Currency target, DateTime? time = default, CancellationToken token = default)
+        public async Task<CurrencyExchangeRate> GetExchangeRateAsync(Currency source, Currency target, DateTime? day = default, CancellationToken token = default)
         {
             var query = _repository.TableNoTracking.Where(x => x.SourceId == source.Id && x.TargetId == target.Id);
 
-            var to = time ?? DateTime.UtcNow;
+            var time = day ?? DateTime.UtcNow;
 
-            return await query.FirstOrDefaultAsync(x => x.From >= to && to <= x.To, token).ConfigureAwait(false);
+            return await query.FirstOrDefaultAsync(x =>  time >= x.From && time <= x.To, token)
+                                                    .ConfigureAwait(false);
         }
     }
 }

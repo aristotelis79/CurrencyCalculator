@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using CurrCalc.Models.Common;
 
-namespace CurrCalc.Models
+namespace CurrCalc.Models.CurrencyExchangeRate
 {
     /// <summary>
     /// 
@@ -17,14 +18,13 @@ namespace CurrCalc.Models
         /// 
         /// </summary>
         [Required]
-        public string SourceIsoCode { get; set; }
+        public IsoCode Source { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [Required]
-        public string TargetIsoCode { get; set; }
-
+        public IsoCode Target { get; set; }
 
         /// <summary>
         /// 

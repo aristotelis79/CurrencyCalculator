@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CurrCalc.Data.Entities;
 using CurrCalc.Models;
+using CurrCalc.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +38,7 @@ namespace CurrCalc.Controllers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _roleManager = roleManager;
+            _roleManager = roleManager ?? throw new ArgumentException(nameof(roleManager));
         }
 
         /// <summary>
@@ -60,10 +62,11 @@ namespace CurrCalc.Controllers
 
                 if (!signIn.Succeeded) return Content("Not valid credentials");
 
+
                 var securityToken = new JwtSecurityToken(issuer: _configuration["Tokens:Issuer"],
                     audience: _configuration["Tokens:Audience"],
-                    claims : new[] {new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())},
-                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["Tokens:Expires"])),
+                    claims : (await GetUserClaims(user).ConfigureAwait(false)).ToArray(),
+                    expires: DateTime.Now.AddDays(Convert.ToInt32(_configuration["Tokens:Expires"])),
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"])),
                         SecurityAlgorithms.HmacSha256));
 
@@ -80,6 +83,35 @@ namespace CurrCalc.Controllers
 
         }
 
+        private async Task<List<Claim>> GetUserClaims(AppUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+            };
+
+            var userClaims = await _userManager.GetClaimsAsync(user).ConfigureAwait(false);
+            var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+
+            claims.AddRange(userClaims);
+
+            foreach (var userRole in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
+                
+                var role = await _roleManager.FindByNameAsync(userRole).ConfigureAwait(false);
+                
+                if (role == null) continue;
+                
+                var roleClaims = await _roleManager.GetClaimsAsync(role).ConfigureAwait(false);
+
+                claims.AddRange(roleClaims);
+            }
+            return claims;
+        }
 
         /// <summary>
         /// 
@@ -88,7 +120,7 @@ namespace CurrCalc.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/users")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] UserModel model)
         {
             //await _roleManager.CreateAsync(new IdentityRole("Admin"));

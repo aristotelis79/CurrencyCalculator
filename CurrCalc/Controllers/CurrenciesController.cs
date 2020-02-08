@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,8 @@ using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
 using CurrCalc.Models;
+using CurrCalc.Models.Common;
+using CurrCalc.Models.Currency;
 using CurrCalc.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
@@ -16,7 +19,6 @@ namespace CurrCalc.Controllers
     /// <inheritdoc />
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class CurrenciesController : BaseController
     {
         private readonly ICurrencyService _currencyService;
@@ -34,14 +36,15 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isoCode"></param>
+        /// <param name="code"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("{isoCode}")]
-        public async Task<IActionResult> Get(string isoCode, CancellationToken token = default)
+        [HttpGet]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> Get([FromQuery] IsoCode code, CancellationToken token = default)
         {
-            var currency = await _currencyService.GetCurrencyByIsoCode(isoCode, token: token).ConfigureAwait(false) ??
-                           await _currencyService.GetCurrencyByIsoCode(isoCode, true, token).ConfigureAwait(false);
+            var currency = await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, token: token).ConfigureAwait(false) ??
+                           await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, true, token).ConfigureAwait(false);
 
             return currency != null ? OkObjectResult(currency.ToModel()) 
                                     : NotFoundObjectResult(nameof(CurrencyService),"currency don't exist");
@@ -51,17 +54,21 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isoCode"></param>
+        /// <param name="code"></param>
         /// <param name="model"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpPut("{isoCode}")]
-        public async Task<IActionResult> Put(string isoCode, [FromBody] CurrencyModel model, CancellationToken token = default)
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Put([FromQuery] IsoCode code, [FromBody] CurrencyUpdateModel model, CancellationToken token = default)
         {
             try
             {
-                var updateCurrency = await _currencyService.GetCurrencyByIsoCode(isoCode, true, token)
+                var updateCurrency = await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, true, token)
                                             .ConfigureAwait(false);
+
+                if (updateCurrency == null)
+                    return NotFoundObjectResult(nameof(CurrencyService), "currency don't exist");
 
                 await _repository.UpdateAsync(updateCurrency.Update(model), token: token).ConfigureAwait(false);
 
@@ -84,7 +91,8 @@ namespace CurrCalc.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post(CurrencyModel model, CancellationToken token = default)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Post(CurrencyCreateModel model, CancellationToken token = default)
         {
             try
             {
@@ -103,15 +111,16 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="isoCode"></param>
+        /// <param name="code"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpDelete("{isoCode}")]
-        public async Task<IActionResult> Delete(string isoCode, CancellationToken token = default)
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete([FromQuery] IsoCode code, CancellationToken token = default)
         {
             try
             {
-                var currency = await _currencyService.GetCurrencyByIsoCode(isoCode, true, token)
+                var currency = await _currencyService.GetCurrencyByIsoCode(code.IsoCodeValue, true, token)
                                                                         .ConfigureAwait(false);
                 if (currency == null)
                     return NotFoundObjectResult(nameof(CurrencyService), "currency don't exist");

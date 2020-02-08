@@ -1,6 +1,6 @@
 ﻿using CurrCalc.Data.Entities;
 
-namespace CurrCalc.Models
+namespace CurrCalc.Models.User
 {
     /// <summary>
     /// 

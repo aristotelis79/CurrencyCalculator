@@ -54,24 +54,24 @@
         <member name="M:CurrCalc.Controllers.CurrenciesController.#ctor(CurrCalc.Services.ICurrencyService,Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.BaseController},CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.Currency,System.Int32})">
             <inheritdoc cref="T:CurrCalc.Controllers.CurrenciesController" />
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Get(System.String,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Get(CurrCalc.Models.Common.IsoCode,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
-            <param name="isoCode"></param>
+            <param name="code"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Put(System.String,CurrCalc.Models.CurrencyModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Put(CurrCalc.Models.Common.IsoCode,CurrCalc.Models.Currency.CurrencyUpdateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
-            <param name="isoCode"></param>
+            <param name="code"></param>
             <param name="model"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.CurrencyModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Post(CurrCalc.Models.Currency.CurrencyCreateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
@@ -79,11 +79,11 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrenciesController.Delete(System.String,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrenciesController.Delete(CurrCalc.Models.Common.IsoCode,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
-            <param name="isoCode"></param>
+            <param name="code"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
@@ -93,17 +93,16 @@
         <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.CurrencyExchangeRate,System.Int32},Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.CurrencyExchangeRatesController},CurrCalc.Services.IExchangeService,CurrCalc.Services.ICurrencyService)">
             <inheritdoc />
         </member>
-        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Get(System.String,System.String,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Get(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             
             </summary>
-            <param name="sourceCode"></param>
-            <param name="targetCode"></param>
-            <param name="time"></param>
+            <param name="request"></param>
+            <param name="day"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Put(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
@@ -111,7 +110,7 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
+        <member name="M:CurrCalc.Controllers.CurrencyExchangeRatesController.Post(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Threading.CancellationToken)">
             <summary>
             
             </summary>
@@ -125,13 +124,13 @@
         <member name="M:CurrCalc.Controllers.UsersController.#ctor(Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.UsersController},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Identity.UserManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.SignInManager{CurrCalc.Data.Entities.AppUser},Microsoft.AspNetCore.Identity.RoleManager{Microsoft.AspNetCore.Identity.IdentityRole})">
             <inheritdoc />
         </member>
-        <member name="M:CurrCalc.Controllers.UsersController.CreateToken(CurrCalc.Models.AuthenticateModel)">
+        <member name="M:CurrCalc.Controllers.UsersController.CreateToken(CurrCalc.Models.User.AuthenticateModel)">
             <summary>
             
             </summary>
             <param name="model"></param>
         </member>
-        <member name="M:CurrCalc.Controllers.UsersController.CreateUser(CurrCalc.Models.UserModel)">
+        <member name="M:CurrCalc.Controllers.UsersController.CreateUser(CurrCalc.Models.User.UserModel)">
             <summary>
             
             </summary>
@@ -405,7 +404,7 @@
             
             </summary>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.CurrencyExchangeRateModel,System.Collections.Generic.Dictionary{System.String,CurrCalc.Data.Entities.Currency})">
+        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel,System.Collections.Generic.Dictionary{System.String,CurrCalc.Data.Entities.Currency})">
             <summary>
             
             </summary>
@@ -413,7 +412,7 @@
             <param name="currencies"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.CurrencyModel)">
+        <member name="M:CurrCalc.Mappers.Map.ToEntity(CurrCalc.Models.Currency.CurrencyCreateModel)">
             <summary>
             
             </summary>
@@ -435,7 +434,7 @@
             <param name="currencies"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.Currency,CurrCalc.Models.CurrencyModel)">
+        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.Currency,CurrCalc.Models.Currency.CurrencyUpdateModel)">
             <summary>
             
             </summary>
@@ -443,7 +442,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.CurrencyExchangeRate,CurrCalc.Models.CurrencyExchangeRateModel)">
+        <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.CurrencyExchangeRate,CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel)">
             <summary>
             
             </summary>
@@ -504,87 +503,127 @@
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Models.AuthenticateModel">
+        <member name="T:CurrCalc.Models.Common.IsoCode">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.AuthenticateModel.Email">
+        <member name="P:CurrCalc.Models.Common.IsoCode.IsoCodeValue">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.AuthenticateModel.Password">
+        <member name="T:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel">
             <summary>
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Models.CurrencyExchangeRateModel">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Id">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Id">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Source">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.SourceIsoCode">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Target">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.TargetIsoCode">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Rate">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Rate">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateModel.Day">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyExchangeRateModel.Day">
+        <member name="T:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest">
             <summary>
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Models.CurrencyModel">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest.Source">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyModel.Id">
+        <member name="P:CurrCalc.Models.CurrencyExchangeRate.CurrencyExchangeRateRequest.Target">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyModel.Country">
+        <member name="T:CurrCalc.Models.Currency.CurrencyCreateModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyModel.Name">
+        <member name="P:CurrCalc.Models.Currency.CurrencyCreateModel.Code">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyModel.IsoCode">
+        <member name="T:CurrCalc.Models.Currency.CurrencyModel">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.CurrencyModel.IsoNumber">
+        <member name="P:CurrCalc.Models.Currency.CurrencyModel.Id">
             <summary>
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Models.UserModel">
+        <member name="P:CurrCalc.Models.Currency.CurrencyModel.Country">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.UserModel.Role">
+        <member name="P:CurrCalc.Models.Currency.CurrencyModel.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.Currency.CurrencyModel.IsoNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.Currency.CurrencyUpdateModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.Currency.CurrencyUpdateModel.Code">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.User.AuthenticateModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.User.AuthenticateModel.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.User.AuthenticateModel.Password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Models.User.UserModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Models.User.UserModel.Role">
             <summary>
             
             </summary>
@@ -644,7 +683,7 @@
             </summary>
             <param name="source"></param>
             <param name="target"></param>
-            <param name="time"></param>
+            <param name="day"></param>
             <param name="token"></param>
             <returns></returns>
         </member>
@@ -696,7 +735,7 @@
             </summary>
             <param name="source"></param>
             <param name="target"></param>
-            <param name="time"></param>
+            <param name="day"></param>
             <param name="token"></param>
             <returns></returns>
         </member>

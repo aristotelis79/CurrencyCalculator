@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using CurrCalc.Data.Entities;
 using CurrCalc.Models;
+using CurrCalc.Models.Common;
+using CurrCalc.Models.Currency;
+using CurrCalc.Models.CurrencyExchangeRate;
 
 namespace CurrCalc.Mappers
 {
@@ -33,13 +36,13 @@ namespace CurrCalc.Mappers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Currency ToEntity(this CurrencyModel model)
+        public static Currency ToEntity(this CurrencyCreateModel model)
         {
             return new Currency
             {
                 Name = model.Name,
                 Country = model.Country,
-                IsoCode = model.IsoCode.ToUpperInvariant(),
+                IsoCode = model.Code.IsoCodeValue.ToUpperInvariant(),
                 IsoNumber = model.IsoNumber
             };
         }
@@ -49,16 +52,16 @@ namespace CurrCalc.Mappers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static CurrencyModel ToModel(this Currency entity)
+        public static CurrencyCreateModel ToModel(this Currency entity)
         {
             if (entity == null) return null;
 
-            return new CurrencyModel
+            return new CurrencyCreateModel
             {
                 Id = entity.Id,
                 Name = entity.Name,
                 Country = entity.Country,
-                IsoCode = entity.IsoCode,
+                Code = new IsoCode {IsoCodeValue = entity.IsoCode},
                 IsoNumber = entity.IsoNumber
             };
         }
@@ -74,10 +77,10 @@ namespace CurrCalc.Mappers
             if (entity == null) return null;
 
             return new CurrencyExchangeRateModel
-            {
+            { 
                Id = entity.Id, 
-               SourceIsoCode = entity.Source?.IsoCode ?? currencies?["source"]?.IsoCode,
-               TargetIsoCode = entity.Target?.IsoCode ?? currencies?["target"]?.IsoCode,
+               Source = new IsoCode { IsoCodeValue = entity.Source?.IsoCode ?? currencies?["source"]?.IsoCode },
+               Target = new IsoCode { IsoCodeValue =  entity.Target?.IsoCode ?? currencies?["target"]?.IsoCode },
                Rate = entity.Rate,
                Day = entity.From,
             };
@@ -89,10 +92,12 @@ namespace CurrCalc.Mappers
         /// <param name="entity"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Currency Update(this Currency entity, CurrencyModel model)
+        public static Currency Update(this Currency entity, CurrencyUpdateModel model)
         {
+            if (entity == null) return null;
+
             entity.IsoNumber = model.IsoNumber > 0 ? model.IsoNumber : entity.IsoNumber;
-            entity.IsoCode = !string.IsNullOrWhiteSpace(model.IsoCode) ? model.IsoCode : entity.IsoCode;
+            entity.IsoCode = !string.IsNullOrWhiteSpace(model.Code) ? model.Code : entity.IsoCode;
             entity.Name = !string.IsNullOrWhiteSpace(model.Name) ? model.Name : entity.Name;
             entity.Country = !string.IsNullOrWhiteSpace(model.Country) ? model.Country : entity.Country;
 
@@ -109,6 +114,7 @@ namespace CurrCalc.Mappers
         public static CurrencyExchangeRate Update(this CurrencyExchangeRate entity, CurrencyExchangeRateModel model)
         {
             if (entity == null) return null;
+
             entity.Rate = model.Rate > 0 ? model.Rate : entity.Rate;
             return entity;
         }

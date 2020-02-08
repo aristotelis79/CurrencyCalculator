@@ -15,9 +15,9 @@ namespace CurrCalc.Services
        /// </summary>
        /// <param name="source"></param>
        /// <param name="target"></param>
-       /// <param name="time"></param>
+       /// <param name="day"></param>
        /// <param name="token"></param>
        /// <returns></returns>
-       Task<CurrencyExchangeRate> GetExchangeRateAsync(Currency source, Currency target, DateTime? time = default, CancellationToken token = default);
+       Task<CurrencyExchangeRate> GetExchangeRateAsync(Currency source, Currency target, DateTime? day = default, CancellationToken token = default);
     }
 }

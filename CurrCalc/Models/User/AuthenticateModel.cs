@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CurrCalc.Models
+namespace CurrCalc.Models.User
 {
     /// <summary>
     /// 
