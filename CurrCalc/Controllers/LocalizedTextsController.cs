@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,13 +31,16 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// 
+        /// Get all localized text for spesific language
         /// </summary>
-        /// <param name="lang"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="lang">Language code</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>Dictionary with all keys - values for a specific language</returns>
         [HttpGet, Route("localizeTexts/{lang}")]
-        public async Task<IActionResult> GetLocalizedTexts(string lang, CancellationToken token)
+        public async Task<IActionResult> GetLocalizedTexts(string lang, CancellationToken token =default)
         {
             try
             {
@@ -48,7 +50,7 @@ namespace CurrCalc.Controllers
                                                                         .ConfigureAwait(false);
 
                 return localizedText == null 
-                    ? NotFoundObjectResult(nameof(LocalizedTextsController),"language don't exist") 
+                    ? NotFoundObjectResult(nameof(LocalizedTextsController),"language text don't exist") 
                     : OkObjectResult(localizedText);
             }
             catch (Exception e)
@@ -58,9 +60,12 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get all languages
         /// </summary>
-        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>Select list of languages</returns>
         [HttpGet, Route("languages")]
         public IActionResult GetLanguages()
         {
@@ -70,7 +75,9 @@ namespace CurrCalc.Controllers
                     .Cast<Enum>()
                     .Select(e => new SelectListItem( e.GetDescription(),e.ToString()));
 
-                return OkObjectResult(listOfEnums);
+                return !listOfEnums.Any() 
+                    ? NotFoundObjectResult(nameof(LocalizedTextsController),"language don't exist") 
+                    : OkObjectResult(listOfEnums);
             }
             catch (Exception e)
             {

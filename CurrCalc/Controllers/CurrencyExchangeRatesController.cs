@@ -39,7 +39,10 @@ namespace CurrCalc.Controllers
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="day">Day of exchange rate</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>exchange rate</returns>
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get([FromRoute] CurrencyExchangeRateRequest request, [FromQuery] DateTime? day = null, CancellationToken token = default)
@@ -72,7 +75,10 @@ namespace CurrCalc.Controllers
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="model">Additional information for create or update exchange range</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>currency exchange rate model</returns>
         [HttpPut]
         [Authorize(Roles = "Admin,Trader")]
         public async Task<IActionResult> Put([FromRoute] CurrencyExchangeRateRequest request, [FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)
@@ -105,7 +111,10 @@ namespace CurrCalc.Controllers
         /// <param name="request">Currency codes for source and target currencies</param>
         /// <param name="model">Additional information for create or update exchange range</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-        /// <returns></returns>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>currency exchange rate model</returns>
         [HttpPost]
         [Authorize(Roles = "Admin,Trader")]
         public async Task<IActionResult> Post([FromRoute] CurrencyExchangeRateRequest request, [FromBody] CurrencyExchangeRateModel model, CancellationToken token = default)

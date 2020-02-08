@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -34,11 +33,15 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get_Currencies
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="code">Iso currency code</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>Currency model</returns>
         [HttpGet("{IsoCodeValue}")]
         [Authorize(Roles = "Admin,Trader")]
         public async Task<IActionResult> Get([FromRoute] IsoCode code, CancellationToken token = default)
@@ -52,12 +55,16 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// 
+        /// Put_Currencies
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="model"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="code">Iso currency code</param>
+        /// <param name="model">Additional information for create or update currency</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <response code="200">OK</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>Currency model</returns>
         [HttpPut("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put([FromRoute] IsoCode code, [FromBody] CurrencyUpdateModel model, CancellationToken token = default)
@@ -85,12 +92,15 @@ namespace CurrCalc.Controllers
 
 
         /// <summary>
-        /// 
+        /// Post_Currencies
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="model"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="code">Iso currency code</param>
+        /// <param name="model">Additional information for create or update currency</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <response code="201">Created</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">InternalServerError</response>
+        /// <returns>currency model</returns>
         [HttpPost("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post([FromRoute] IsoCode code, CurrencyModel model, CancellationToken token = default)
@@ -110,11 +120,15 @@ namespace CurrCalc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Delete_Currencies
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="code">Iso currency code</param>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <response code="200">OK</response>
+        /// <response code="204">NoContent</response>
+        /// <response code="400">NotFound</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">InternalServerError</response>
         [HttpDelete("{IsoCodeValue}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] IsoCode code, CancellationToken token = default)
