@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace CurrCalc.Models
+namespace CurrCalc.Models.Common
 {
     /// <summary>
     /// 

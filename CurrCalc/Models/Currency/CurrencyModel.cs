@@ -1,6 +1,4 @@
-﻿using CurrCalc.Models.Common;
-
-namespace CurrCalc.Models.Currency
+﻿namespace CurrCalc.Models.Currency
 {
     /// <summary>
     /// 

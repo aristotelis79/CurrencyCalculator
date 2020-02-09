@@ -1,5 +1,4 @@
-﻿using System;
-using CurrCalc.Models.Common;
+﻿using CurrCalc.Models.Common;
 
 namespace CurrCalc.Models.CurrencyExchangeRate
 {

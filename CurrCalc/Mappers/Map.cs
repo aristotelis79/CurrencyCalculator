@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CurrCalc.Data.Entities;
-using CurrCalc.Models;
 using CurrCalc.Models.Common;
 using CurrCalc.Models.Currency;
 using CurrCalc.Models.CurrencyExchangeRate;

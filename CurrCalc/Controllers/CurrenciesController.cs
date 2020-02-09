@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
-using CurrCalc.Models;
 using CurrCalc.Models.Common;
 using CurrCalc.Models.Currency;
 using CurrCalc.Services;

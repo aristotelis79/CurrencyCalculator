@@ -1,5 +1,4 @@
 ﻿using CurrCalc.Models.Common;
-using Newtonsoft.Json;
 
 namespace CurrCalc.Models.Currency
 {

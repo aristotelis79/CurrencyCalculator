@@ -2,9 +2,7 @@
 
 namespace CurrCalc.Data.Entities
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <inheritdoc />
     public class AppUser : IdentityUser
     {
     }

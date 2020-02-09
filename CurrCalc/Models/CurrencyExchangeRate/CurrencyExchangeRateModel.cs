@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using CurrCalc.Models.Common;
 
 namespace CurrCalc.Models.CurrencyExchangeRate
 {
