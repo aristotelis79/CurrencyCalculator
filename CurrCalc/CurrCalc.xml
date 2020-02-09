@@ -194,9 +194,7 @@
             <inheritdoc />
         </member>
         <member name="T:CurrCalc.Data.Entities.AppUser">
-            <summary>
-            
-            </summary>
+            <inheritdoc />
         </member>
         <member name="T:CurrCalc.Data.Entities.BaseEntity`1">
             <summary>
@@ -516,43 +514,43 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="T:CurrCalc.Models.ApiResponse">
+        <member name="T:CurrCalc.Models.Common.ApiResponse">
             <summary>
             
             </summary>
         </member>
-        <member name="M:CurrCalc.Models.ApiResponse.#ctor(System.String)">
+        <member name="M:CurrCalc.Models.Common.ApiResponse.#ctor(System.String)">
             <summary>
             
             </summary>
             <param name="name"></param>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Id">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.Id">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Name">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.Name">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Status">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.Status">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Data">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.Data">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.ErrorMsg">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.ErrorMsg">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Models.ApiResponse.Success">
+        <member name="P:CurrCalc.Models.Common.ApiResponse.Success">
             <summary>
             
             </summary>
