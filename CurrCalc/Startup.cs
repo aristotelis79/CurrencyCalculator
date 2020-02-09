@@ -101,7 +101,7 @@ namespace CurrCalc
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "EMPLOYEE API",
+                    Title = "CURRENCY API",
                 });
 
                 //security
@@ -167,7 +167,7 @@ namespace CurrCalc
             app.UseSwaggerUI(c =>
             {
                 c.InjectJavascript("/swagger-ui/translate.doc.js");
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Currency API V1");
                 c.RoutePrefix = string.Empty;
                 //c.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("CurrCalc.ApiDoc.html");
             });
@@ -190,18 +190,17 @@ namespace CurrCalc
             });
 
             var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using (var serviceScope = serviceScopeFactory.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
-                dbContext.Database.EnsureCreated();
 
-                var result = dbContext.Set<Currency>().Find(new object[]{1});
-                if(result != null) return;
+            using var serviceScope = serviceScopeFactory.CreateScope();
+            var dbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
+            dbContext.Database.EnsureCreated();
+
+            var result = dbContext.Set<Currency>().Find(new object[]{1});
+            if(result != null) return;
                 
-                var filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./App_Data/seed.sql");
-                var sql = File.Exists(filepath) ? File.ReadAllText(filepath) : string.Empty;
-                dbContext.Database.ExecuteSqlRaw(sql);
-            }
+            var filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./App_Data/seed.sql");
+            var sql = File.Exists(filepath) ? File.ReadAllText(filepath) : string.Empty;
+            dbContext.Database.ExecuteSqlRaw(sql);
         }
     }
 }

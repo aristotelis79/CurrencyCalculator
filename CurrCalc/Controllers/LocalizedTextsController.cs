@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
-using CurrCalc.Helpers;
-using CurrCalc.Models.Common;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
@@ -19,14 +17,16 @@ namespace CurrCalc.Controllers
     public class LocalizedTextsController : BaseController
     {
 
-        private readonly IRepository<LocalizedText,int> _repository;
+        private readonly IRepository<LocalizedText,int> _localizedTextRepository;
+        private readonly IRepository<Language,int> _languageRepository;
 
         /// <inheritdoc />
-        public LocalizedTextsController(
-            IRepository<LocalizedText, int> repository,
-            ILogger<LocalizedTextsController> logger) : base(logger)
+        public LocalizedTextsController(IRepository<LocalizedText, int> localizedTextRepository,
+                                        IRepository<Language, int> languageRepository,
+                                        ILogger<LocalizedTextsController> logger) : base(logger)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _localizedTextRepository = localizedTextRepository ?? throw new ArgumentNullException(nameof(localizedTextRepository));
+            _languageRepository = languageRepository ?? throw new ArgumentNullException(nameof(languageRepository));
         }
 
 
@@ -44,8 +44,9 @@ namespace CurrCalc.Controllers
         {
             try
             {
-                var localizedText = await _repository.TableNoTracking
-                                                                        .Where(x => x.Language.Equals(lang.ToUpperInvariant()))
+                var localizedText = await _localizedTextRepository
+                                                                        .TableNoTracking
+                                                                        .Where(x => x.Language.LanguageCode.Equals(lang.ToUpperInvariant()))
                                                                         .ToDictionaryAsync(k=>k.Key, v =>v.Value , token)
                                                                         .ConfigureAwait(false);
 
@@ -62,19 +63,23 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// Get all languages
         /// </summary>
+        /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <response code="200">OK</response>
         /// <response code="400">NotFound</response>
         /// <response code="500">InternalServerError</response>
         /// <returns>Select list of languages</returns>
         [HttpGet, Route("languages")]
-        public IActionResult GetLanguages()
+        public async Task<IActionResult> GetLanguages( CancellationToken token = default)
         {
             try
-            {
-                var listOfEnums = Enum.GetValues(typeof(Language))
-                    .Cast<Enum>()
-                    .Select(e => new SelectListItem( e.GetDescription(),e.ToString()));
-
+            { 
+                var listOfEnums = await _languageRepository.TableNoTracking
+                                                            .Select(x=> new SelectListItem {
+                                                                                                    Text = x.LanguageName,
+                                                                                                    Value = x.LanguageCode
+                                                                                                    })
+                                                            .ToListAsync(token)
+                                                            .ConfigureAwait(false);
                 return !listOfEnums.Any() 
                     ? NotFoundObjectResult(nameof(LocalizedTextsController),"language don't exist") 
                     : OkObjectResult(listOfEnums);

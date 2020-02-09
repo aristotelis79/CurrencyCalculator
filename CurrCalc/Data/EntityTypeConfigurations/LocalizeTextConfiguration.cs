@@ -13,12 +13,15 @@ namespace CurrCalc.Data.EntityTypeConfigurations
             builder.ToTable(nameof(LocalizedText))
                     .HasKey(k => k.Id);
 
-            builder.Property(p => p.Language)
-                .HasColumnType("char(2)");
+            builder.HasOne(n => n.Language)
+                .WithMany(x => x.LocalizedTexts)
+                .HasForeignKey(f => f.LanguageId)
+                .HasConstraintName("FK_Language_LocalizedTexts")
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasIndex(i => new {i.Language, i.Key})
-                .IsUnique()
-                .HasName("idx_Lang_Key");
+            builder.HasIndex(i => new { i.LanguageId, i.Key })
+                    .IsUnique()
+                    .HasName("idx_LanguageId_Key");
         }
     }
 }

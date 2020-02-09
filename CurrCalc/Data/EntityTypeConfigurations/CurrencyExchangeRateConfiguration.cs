@@ -25,14 +25,14 @@ namespace CurrCalc.Data.EntityTypeConfigurations
             builder.HasOne(n => n.Target)
                 .WithMany(x=>x.TargetCurrencyExchangeRates)
                 .HasForeignKey(f => f.TargetId)
-                .HasConstraintName("Currency_Target_FK")
+                .HasConstraintName("FK_Currency_Target")
                 .OnDelete(DeleteBehavior.NoAction);
 
 
             builder.HasOne(n => n.Source)
                 .WithMany(x=>x.SourceCurrencyExchangeRates)
                 .HasForeignKey(n => n.SourceId)
-                .HasConstraintName("Currency_Source_FK")
+                .HasConstraintName("FK_Currency_Source")
                 .OnDelete(DeleteBehavior.NoAction);
 
 

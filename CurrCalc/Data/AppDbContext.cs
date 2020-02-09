@@ -1,10 +1,7 @@
-﻿using System;
-using CurrCalc.Data.Entities;
+﻿using CurrCalc.Data.Entities;
 using CurrCalc.Data.EntityTypeConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CurrCalc.Data
 {
@@ -30,6 +27,7 @@ namespace CurrCalc.Data
             modelBuilder.ApplyConfiguration(new CurrencyExchangeRateConfiguration());
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
             modelBuilder.ApplyConfiguration(new LocalizeTextConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -39,9 +37,6 @@ namespace CurrCalc.Data
         {
             return base.Set<TEntity>();
         }
-
-        ///<inheritdoc />
-        public DbSet<CurrCalc.Data.Entities.LocalizedText> LocalizedText { get; set; }
 
         #endregion
     }

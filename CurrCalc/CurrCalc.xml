@@ -136,7 +136,7 @@
         <member name="T:CurrCalc.Controllers.LocalizedTextsController">
             <inheritdoc />
         </member>
-        <member name="M:CurrCalc.Controllers.LocalizedTextsController.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.LocalizedText,System.Int32},Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.LocalizedTextsController})">
+        <member name="M:CurrCalc.Controllers.LocalizedTextsController.#ctor(CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.LocalizedText,System.Int32},CurrCalc.Data.Repository.IRepository{CurrCalc.Data.Entities.Language,System.Int32},Microsoft.Extensions.Logging.ILogger{CurrCalc.Controllers.LocalizedTextsController})">
             <inheritdoc />
         </member>
         <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLocalizedTexts(System.String,System.Threading.CancellationToken)">
@@ -150,10 +150,11 @@
             <response code="500">InternalServerError</response>
             <returns>Dictionary with all keys - values for a specific language</returns>
         </member>
-        <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLanguages">
+        <member name="M:CurrCalc.Controllers.LocalizedTextsController.GetLanguages(System.Threading.CancellationToken)">
             <summary>
             Get all languages
             </summary>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
             <response code="200">OK</response>
             <response code="400">NotFound</response>
             <response code="500">InternalServerError</response>
@@ -190,9 +191,6 @@
             <inheritdoc />
         </member>
         <member name="M:CurrCalc.Data.AppDbContext.Set``2">
-            <inheritdoc />
-        </member>
-        <member name="P:CurrCalc.Data.AppDbContext.LocalizedText">
             <inheritdoc />
         </member>
         <member name="T:CurrCalc.Data.Entities.AppUser">
@@ -290,12 +288,27 @@
             
             </summary>
         </member>
-        <member name="T:CurrCalc.Data.Entities.LocalizedText">
+        <member name="T:CurrCalc.Data.Entities.Language">
             <summary>
             
             </summary>
         </member>
-        <member name="P:CurrCalc.Data.Entities.LocalizedText.Language">
+        <member name="P:CurrCalc.Data.Entities.Language.LanguageCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Language.LanguageName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.Language.LocalizedTexts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CurrCalc.Data.Entities.LocalizedText">
             <summary>
             
             </summary>
@@ -306,6 +319,16 @@
             </summary>
         </member>
         <member name="P:CurrCalc.Data.Entities.LocalizedText.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.LocalizedText.LanguageId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CurrCalc.Data.Entities.LocalizedText.Language">
             <summary>
             
             </summary>
@@ -321,6 +344,12 @@
         </member>
         <member name="M:CurrCalc.Data.EntityTypeConfigurations.CurrencyExchangeRateConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.CurrencyExchangeRate})">
             <inheritdoc cref="T:CurrCalc.Data.Entities.CurrencyExchangeRate"/>
+        </member>
+        <member name="T:CurrCalc.Data.EntityTypeConfigurations.LanguageConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="M:CurrCalc.Data.EntityTypeConfigurations.LanguageConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{CurrCalc.Data.Entities.Language})">
+            <inheritdoc />
         </member>
         <member name="T:CurrCalc.Data.EntityTypeConfigurations.LocalizeTextConfiguration">
             <inheritdoc cref="T:CurrCalc.Data.Entities.LocalizedText"/>
@@ -437,19 +466,6 @@
             <param name="token"> to observe while waiting for the task to complete.</param>
             <returns></returns>
         </member>
-        <member name="T:CurrCalc.Helpers.EnumHelper">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:CurrCalc.Helpers.EnumHelper.GetDescription``1(``0)">
-            <summary>
-            
-            </summary>
-            <param name="value"></param>
-            <typeparam name="TEnum"></typeparam>
-            <returns></returns>
-        </member>
         <member name="T:CurrCalc.Mappers.Map">
             <summary>
             
@@ -482,7 +498,6 @@
             
             </summary>
             <param name="entity"></param>
-            <param name="currencies"></param>
             <returns></returns>
         </member>
         <member name="M:CurrCalc.Mappers.Map.Update(CurrCalc.Data.Entities.Currency,CurrCalc.Models.Currency.CurrencyUpdateModel)">
@@ -548,19 +563,6 @@
             </summary>
         </member>
         <member name="P:CurrCalc.Models.Common.IsoCode.IsoCodeValue">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:CurrCalc.Models.Common.Language">
-            <inheritdoc />
-        </member>
-        <member name="F:CurrCalc.Models.Common.Language.En">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:CurrCalc.Models.Common.Language.El">
             <summary>
             
             </summary>

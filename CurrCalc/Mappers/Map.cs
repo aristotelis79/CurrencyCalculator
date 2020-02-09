@@ -70,7 +70,6 @@ namespace CurrCalc.Mappers
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="currencies"></param>
         /// <returns></returns>
         public static CurrencyExchangeRateModel ToModel(this CurrencyExchangeRate entity)
         {
