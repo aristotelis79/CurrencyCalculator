@@ -1,116 +1,111 @@
 ﻿
 const Language = {
 
-    select_list_id_Selector: "languages",
-    topBar_Selector: ".topbar-wrapper",
-    language_Key_Selector: "data-lang-key",
-    close_block_Selector: ".opblock-tag",
-    block_summary_Selector: ".opblock-summary-description",
-    data_is_open_Selector: 'data-is-open',
-    localize_key_start : "Localize_Key_",
+    select_list_id_selector: "languages",
+    topBar_selector: ".topbar-wrapper",
+    language_Key_selector: "data-lang-key",
+    close_block_selector: ".opblock-tag",
+    block_summary_selector: ".opblock-summary-description",
+    method_summary_selector: ".opblock-summary",
+    parameters_selector: ".renderedMarkdown > p,.renderedMarkdown > input",
+    data_is_open_selector: 'data-is-open',
+    localize_key_start: "Localize_Key_",
     select_list_html: `<label for="languages" style="color:white">&nbsp&nbsp</label>
-                        <select onchange="Language.changeLanguage(this.value)" id="languages">
+                        <select onchange="Language.changeLanguageResources(this.value)" id="languages">
                         </select>`,
 
-    languagesUrl : "/languages",
-    localizeTextsUrl : "/localizeTexts",
+    languagesUrl: "/languages",
+    localizeTextsUrl: "/localizeTexts",
 
-    descriptionsEls : { },
-
+    textElements: {},
     sources: {},
 
-    init: function () {
+    init: function() {
 
         //add select list html item
         const listEl = document.createElement("div");
         listEl.innerHTML = Language.select_list_html;
-        document.querySelector(Language.topBar_Selector).append(listEl);
+        document.querySelector(Language.topBar_selector).append(listEl);
 
         //get languages
-        getData(Language.languagesUrl).then((data) => {
-            toSelectList(`#${Language.select_list_id_Selector}`, data.data);
+        Helpers.getData(Language.languagesUrl).then((data) => {
+            Helpers.toSelectList(`#${Language.select_list_id_selector}`, data.data);
         });
 
         Language.setKeys();
 
-        Language.getEnglish();
+        Language.changeLanguageResources('en');
 
-        Language.collapseEvent();
+        Language.collapseEvent(Language.close_block_selector);
+
+        Language.collapseEvent(Language.method_summary_selector);
     },
 
     setKeys: function() {
-        Language.descriptionsEls = document.querySelectorAll(Language.block_summary_Selector);
-        Language.descriptionsEls.forEach(e => {
-            if(e.innerText.startsWith(Language.localize_key_start))
-                e.setAttribute(Language.language_Key_Selector, e.innerText);
+        Language.textElements = document.querySelectorAll(`${Language.parameters_selector},${Language.block_summary_selector}`);
+        Language.textElements.forEach(e => {
+            if (e.innerText.startsWith(Language.localize_key_start))
+                e.setAttribute(Language.language_Key_selector, e.innerText);
         });
     },
 
-    getEnglish: function() {
-        getData(Language.localizeTextsUrl+ '/en').then((data) => {
-            Language.sources = data.data;
-            Language.replaceLanguageSources();
-        });
-    },
-
-    collapseEvent: function() {
-        const blocks = document.querySelectorAll(Language.close_block_Selector);
+    collapseEvent: function(selector) {
+        const blocks = document.querySelectorAll(selector);
         blocks.forEach((b) => {
             b.onclick = function() {
-                if (b.getAttribute(Language.data_is_open_Selector) === 'false') {
                     setTimeout(function() {
-                        Language.setKeys();
-                        Language.replaceLanguageSources();
-                    }, 1000);
-                }
-            }
+                            Language.setKeys();
+                            Language.replaceLanguageSources();
+                        },
+                        1000);
+            };
         });
     },
 
-    changeLanguage: function (val) {
-        getData(`${Language.localizeTextsUrl}/${val}`).then((data) => {
+    changeLanguageResources: function(val) {
+        Helpers.getData(`${Language.localizeTextsUrl}/${val}`).then((data) => {
             Language.sources = data.data;
             Language.replaceLanguageSources();
         });
     },
 
-
-    replaceLanguageSources: function () {
-        Language.descriptionsEls.forEach(e => {
-            const key = e.getAttribute(Language.language_Key_Selector);
+    replaceLanguageSources: function() {
+        Language.textElements.forEach(e => {
+            const key = e.getAttribute(Language.language_Key_selector);
             if (key)
                 e.innerText = Language.sources[key];
         });
 
     }
-}
+};
 
+const Helpers = {
 
-async function getData(url = '') {
-    const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
-    });
-    return await response.json();
-}
+    getData: async function (url = '') {
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+        });
+        return await response.json();
+    },
 
+    toSelectList: function (selector, data) {
+        const list = document.querySelector(selector);
 
-function toSelectList(selector, data) {
-    const list = document.querySelector(selector);
-
-    data.forEach(d => {
-        const opt = document.createElement("option");
-        opt.setAttribute("value", d.value);
-        opt.innerHTML = d.text;
-        list.append(opt);
-    });
+        data.forEach(d => {
+            const opt = document.createElement("option");
+            opt.setAttribute("value", d.value);
+            opt.innerHTML = d.text;
+            list.append(opt);
+        });
+    }
 }
 
 

@@ -59,5 +59,11 @@ INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (13, 1,
 INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (14, 1, N'Localize_Key_Create_User', N'Create User')
 INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (15, 2, N'Localize_Key_Create_Token', N'Δημιουργεί token για χρήση εξουσιοδοτημένων ενεργειών')
 INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (16, 2, N'Localize_Key_Create_User', N'Δημιουργεί χρήστη')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (17, 1, N'Localize_Key_Get_Exchange_Rate_Value', N'The value will be calculated with the rate for specific currencies')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (18, 1, N'Localize_Key_Get_Exchange_Rate_Day', N'Get the rate for this day')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (19, 1, N'Localize_Key_Sample_Request', N'Sample request for this day and with a specific day')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (20, 2, N'Localize_Key_Get_Exchange_Rate_Value', N'Η τιμή θα υπολογιστεί με την ισοτιμία για συγκεκριμένα νομίσματα')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (21, 2, N'Localize_Key_Get_Exchange_Rate_Day', N'Πάρτε την ισοτιμία για αυτήν την ημέρα')
+INSERT [dbo].[LocalizedText] ([Id], [LanguageId], [Key], [Value]) VALUES (22, 2, N'Localize_Key_Sample_Request', N'Δείγμα αίτησης για σήμερα ή για συγκεκριμένη ημερομηνία')
 
 SET IDENTITY_INSERT [dbo].[LocalizedText] OFF

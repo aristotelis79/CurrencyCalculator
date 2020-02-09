@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using CurrCalc.Data.Entities;
 using CurrCalc.Data.Repository;
 using CurrCalc.Mappers;
+using CurrCalc.Models.Common;
 using CurrCalc.Models.CurrencyExchangeRate;
 using CurrCalc.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CurrCalc.Controllers
 {
@@ -36,22 +39,37 @@ namespace CurrCalc.Controllers
         /// <summary>
         /// Localize_Key_Get_Exchange_Rate
         /// </summary>
+        /// <remarks>
+        /// Localize_Key_Sample_Request
+        /// 
+        ///     GET /api/exchanges/EUR/USD/10.2
+        /// 
+        ///     GET /api/exchanges/EUR/USD/10.2?day=2020-02-10
+        ///     
+        /// </remarks>
         /// <param name="request">Currency codes for source and target currencies</param>
-        /// <param name="day">Day of exchange rate</param>
+        /// <param name="value">Localize_Key_Get_Exchange_Rate_Value</param>
+        /// <param name="day">Localize_Key_Get_Exchange_Rate_Day</param>
         /// <param name="token">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <response code="200">OK</response>
         /// <response code="400">NotFound</response>
         /// <response code="500">InternalServerError</response>
         /// <returns>exchange rate</returns>
         [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Get([FromRoute] CurrencyExchangeRateRequest request, [FromQuery] DateTime? day = null, CancellationToken token = default)
+        [HttpGet,Route("{value?}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Get([FromRoute] CurrencyExchangeRateRequest request,
+                                                [FromRoute, SwaggerParameter(Required = false)] float value = 1, 
+                                                [FromQuery, SwaggerParameter(Required = false)] DateTime? day = null, 
+                                                CancellationToken token = default)
         {
             try
             {
                 var currencies = await _currencyService.GetCurrenciesByIsoCode(request.Source.IsoCodeValue,request.Target.IsoCodeValue, token: token)
                                                                             .ConfigureAwait(false);
-
 
                 if (currencies.Values.Any(x=> x == null)) 
                     return NotFoundObjectResult(nameof(CurrencyService), "currency code don't exist");
@@ -60,7 +78,7 @@ namespace CurrCalc.Controllers
                                                             .ConfigureAwait(false);
 
                 return exchangeRate == null ? NotFoundObjectResult(nameof(ExchangeService), "exchange rate don't exist") 
-                                            : OkObjectResult(exchangeRate.Rate);
+                                            : OkObjectResult(value * exchangeRate.Rate);
             }
             catch (Exception e)
             {
